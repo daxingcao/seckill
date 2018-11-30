@@ -1,0 +1,37 @@
+/**login page pertinent css*/
+.error{
+	color: red;
+}
+.login_submit{
+	width: 400px;
+	margin: 100px auto;
+	border-radius:5px;
+	min-height: 550px;
+	box-shadow: 0px 0px 10px #666;
+}
+.button-submit{
+	width: 400px;
+	margin: 50px auto;
+	text-align: center;
+}
+.button-submit .btn-success{
+	width: 200px;
+}
+.form-login{
+	width: 200px;
+	margin: 0px auto;
+}
+.login-icon{
+	width: 100px;
+	height: 100px;
+	margin: 80px auto 50px auto;
+}
+.login_submit:before{
+	content: '.';
+	display: block;
+	clear: both;
+	font-size: 0;
+	opacity: 0;
+	line-height: 0;
+	height: 0;
+}
