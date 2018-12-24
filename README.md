@@ -1,2 +1,1 @@
-seckill-shop
 # seckill-shop
