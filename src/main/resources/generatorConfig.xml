@@ -3,7 +3,7 @@
 <generatorConfiguration>
 	<!-- jar包位置 -->
 	<classPathEntry
-		location="D://MyDownloads/mysql-connector-java-5.1.8.jar" />
+		location="D:\mysql\mysql-connector-java-5.1.47.jar" />
 		
 	
 
@@ -12,7 +12,7 @@
         <property name="javaFileEncoding" value="UTF-8"/>
 		<commentGenerator type="com.caodaxing.shopseckill.utils.MyCommentGenerator">
 			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
-			<property name="suppressAllComments" value="false" />
+			<property name="suppressAllComments" value="true" />
 			<property name="USER_DEFINED_FLAG" value="true"/>
 		</commentGenerator>
 
@@ -25,20 +25,21 @@
 
 		<!-- 生成pojo类的位置 -->
 		<javaModelGenerator targetPackage="com.caodaxing.shopseckill.entity"
-			targetProject="shop-seckill\src\main\java">
+			targetProject="src/main/java">
 		</javaModelGenerator>
 
 		<!-- 生成映射文件的位置 -->
 		<sqlMapGenerator targetPackage="mapper"
-			targetProject="shop-seckill\src\main\resources">
+			targetProject="src/main/resources">
 		</sqlMapGenerator>
 
 		<!-- 接口生成位置 -->
 		<javaClientGenerator targetPackage="com.caodaxing.shopseckill.dao"
-			targetProject="shop-seckill\src\main\java" type="XMLMAPPER" />
+			targetProject="src/main/java" type="XMLMAPPER" />
 
 		<!-- 数据库中的表 -->
-		<table tableName="login_user"/>
+		<table tableName="oauth_client"/>
+		<table tableName="oauth_token"/>
 		<!-- <table tableName="simple_message" >
 			<domainObjectRenamingRule searchString="^Db" replaceString=""/>
 		</table>
