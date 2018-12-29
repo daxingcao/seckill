@@ -9,6 +9,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.filter.authz.AuthorizationFilter;
@@ -30,6 +31,11 @@ public class ShiroAuthrentitionConfig {
 	@Bean
 	public AuthorizationFilter roleAuthorizationFilter() {
 		return new ShiroRolesFilter();
+	}
+
+	@Bean
+	public AccessControlFilter oauth2Filter(){
+		return new OAuth2Filter();
 	}
 	
 	public LogoutFilter logoutFilter() {
@@ -76,9 +82,9 @@ public class ShiroAuthrentitionConfig {
 		Map<String, String> urlAuth = new HashMap<String, String>();
 		urlAuth.put("/static/**", "anon");
 		urlAuth.put("/html/**", "anon");
-//		urlAuth.put("/message/login.jhtml", "anon");
 		urlAuth.put("/system/checkLogin.do", "anon");
-//		urlAuth.put("/index", "anon");
+		urlAuth.put("/oauth/**", "anon");
+		urlAuth.put("/open/**","oauth2");
 		urlAuth.put("/logout", "logout");
 		urlAuth.put("/proviter/**", "authc,anyRole[admin,user]");
 		urlAuth.put("/**", "authc");
@@ -87,7 +93,7 @@ public class ShiroAuthrentitionConfig {
 		Map<String, Filter> filterMap = new HashMap<>();
 		filterMap.put("logout", logoutFilter());
 		filterMap.put("anyRole", roleAuthorizationFilter());
-//		filterMap.put("authc", formAuthenticationFilter());
+		filterMap.put("oauth2",  oauth2Filter());
 		shiroFilter.setFilters(filterMap);
 		return shiroFilter;
 	}

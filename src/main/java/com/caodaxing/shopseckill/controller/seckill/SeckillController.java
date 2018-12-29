@@ -1,15 +1,9 @@
 package com.caodaxing.shopseckill.controller.seckill;
 
-import static org.hamcrest.CoreMatchers.is;
 
 import java.util.Date;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
-import org.apache.catalina.manager.util.SessionUtils;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

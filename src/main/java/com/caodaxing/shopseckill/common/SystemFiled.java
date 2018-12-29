@@ -17,4 +17,32 @@ public class SystemFiled {
 	/**登录用户保存session*/
 	public static final String USER_SESSION = "login_user";
 
+	public enum DeleteStatus{
+		NOT_DELETED(0,"未删除"),
+		IS_DELETED(1,"已删除");
+
+		private Integer code;
+		private String status;
+		DeleteStatus(Integer code, String status){
+			this.code = code;
+			this.status = status;
+		}
+
+		public Integer getCode() {
+			return code;
+		}
+
+		public void setCode(Integer code) {
+			this.code = code;
+		}
+
+		public String getStatus() {
+			return status;
+		}
+
+		public void setStatus(String status) {
+			this.status = status;
+		}
+	}
+
 }
