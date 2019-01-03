@@ -32,3 +32,5 @@ CREATE TABLE `oauth_token`(
 	primary key (`id`),
 	unique key `oauth_client_id_index` (`oauth_client_id`)
 )engine=innodb DEFAULT charset=utf8 comment='token信息表';
+ALTER TABLE `oauth_token` add COLUMN `refresh_token` VARCHAR(200) default null comment '刷新token' after `access_token`,
+add column `refresh_expiry_date` timestamp default null comment '刷新的token过期时间' after `expiry_date`;

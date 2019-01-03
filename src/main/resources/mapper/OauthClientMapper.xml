@@ -41,39 +41,12 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
+
   <sql id="Base_Column_List">
     id, client_id, client_secret, client_name, code, expiry_date, create_date, update_date, 
     is_delete
   </sql>
+
   <select id="selectByExample" parameterType="com.caodaxing.shopseckill.entity.OauthClientExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -88,22 +61,14 @@
       order by ${orderByClause}
     </if>
   </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from oauth_client
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from oauth_client
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.caodaxing.shopseckill.entity.OauthClientExample">
-    delete from oauth_client
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
+
   <insert id="insert" parameterType="com.caodaxing.shopseckill.entity.OauthClient">
     insert into oauth_client (id, client_id, client_secret, 
       client_name, code, expiry_date, 
@@ -114,6 +79,7 @@
       #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=INTEGER}
       )
   </insert>
+
   <insert id="insertSelective" parameterType="com.caodaxing.shopseckill.entity.OauthClient">
     insert into oauth_client
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -175,62 +141,14 @@
       </if>
     </trim>
   </insert>
+
   <select id="countByExample" parameterType="com.caodaxing.shopseckill.entity.OauthClientExample" resultType="java.lang.Long">
     select count(*) from oauth_client
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update oauth_client
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=BIGINT},
-      </if>
-      <if test="record.clientId != null">
-        client_id = #{record.clientId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.clientSecret != null">
-        client_secret = #{record.clientSecret,jdbcType=VARCHAR},
-      </if>
-      <if test="record.clientName != null">
-        client_name = #{record.clientName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.code != null">
-        code = #{record.code,jdbcType=VARCHAR},
-      </if>
-      <if test="record.expiryDate != null">
-        expiry_date = #{record.expiryDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.createDate != null">
-        create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.updateDate != null">
-        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.isDelete != null">
-        is_delete = #{record.isDelete,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update oauth_client
-    set id = #{record.id,jdbcType=BIGINT},
-      client_id = #{record.clientId,jdbcType=VARCHAR},
-      client_secret = #{record.clientSecret,jdbcType=VARCHAR},
-      client_name = #{record.clientName,jdbcType=VARCHAR},
-      code = #{record.code,jdbcType=VARCHAR},
-      expiry_date = #{record.expiryDate,jdbcType=TIMESTAMP},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
-      is_delete = #{record.isDelete,jdbcType=INTEGER}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.caodaxing.shopseckill.entity.OauthClient">
     update oauth_client
     <set>
@@ -261,6 +179,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.caodaxing.shopseckill.entity.OauthClient">
     update oauth_client
     set client_id = #{clientId,jdbcType=VARCHAR},

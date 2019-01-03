@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Builder
@@ -28,9 +29,19 @@ public class OauthToken {
     private String accessToken;
 
     /**
+     * 刷新token
+     */
+    private String refreshToken;
+
+    /**
      * 过期时间
      */
     private LocalDateTime expiryDate;
+
+    /**
+     * 刷新的token过期时间
+     */
+    private LocalDateTime refreshExpiryDate;
 
     /**
      * 创建时间

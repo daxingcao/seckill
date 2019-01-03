@@ -9,10 +9,6 @@ public interface OauthClientService {
 
     long countByExample(OauthClientExample example);
 
-    int deleteByExample(OauthClientExample example);
-
-    int deleteByPrimaryKey(Long id);
-
     int insert(OauthClient record);
 
     int insertSelective(OauthClient record);
@@ -21,12 +17,12 @@ public interface OauthClientService {
 
     OauthClient selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(OauthClient record, OauthClientExample example);
-
-    int updateByExample(OauthClient record, OauthClientExample example);
-
     int updateByPrimaryKeySelective(OauthClient record);
 
     int updateByPrimaryKey(OauthClient record);
+
+    OauthClient checkClient(String clientId, String clientSecret);
+
+    OauthClient isExistClient(String clientId);
 
 }

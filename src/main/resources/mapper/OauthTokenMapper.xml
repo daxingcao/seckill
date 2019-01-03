@@ -5,7 +5,9 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="oauth_client_id" jdbcType="BIGINT" property="oauthClientId" />
     <result column="access_token" jdbcType="VARCHAR" property="accessToken" />
+    <result column="refresh_token" jdbcType="VARCHAR" property="refreshToken" />
     <result column="expiry_date" jdbcType="TIMESTAMP" property="expiryDate" />
+    <result column="refresh_expiry_date" jdbcType="TIMESTAMP" property="refreshExpiryDate" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
     <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
@@ -39,38 +41,12 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
+
   <sql id="Base_Column_List">
-    id, oauth_client_id, access_token, expiry_date, create_date, update_date, is_delete
+    id, oauth_client_id, access_token, refresh_token, expiry_date, refresh_expiry_date, 
+    create_date, update_date, is_delete
   </sql>
+
   <select id="selectByExample" parameterType="com.caodaxing.shopseckill.entity.OauthTokenExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -85,30 +61,25 @@
       order by ${orderByClause}
     </if>
   </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from oauth_token
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from oauth_token
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.caodaxing.shopseckill.entity.OauthTokenExample">
-    delete from oauth_token
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
+
   <insert id="insert" parameterType="com.caodaxing.shopseckill.entity.OauthToken">
     insert into oauth_token (id, oauth_client_id, access_token, 
-      expiry_date, create_date, update_date, 
-      is_delete)
+      refresh_token, expiry_date, refresh_expiry_date, 
+      create_date, update_date, is_delete
+      )
     values (#{id,jdbcType=BIGINT}, #{oauthClientId,jdbcType=BIGINT}, #{accessToken,jdbcType=VARCHAR}, 
-      #{expiryDate,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
-      #{isDelete,jdbcType=INTEGER})
+      #{refreshToken,jdbcType=VARCHAR}, #{expiryDate,jdbcType=TIMESTAMP}, #{refreshExpiryDate,jdbcType=TIMESTAMP}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=INTEGER}
+      )
   </insert>
+
   <insert id="insertSelective" parameterType="com.caodaxing.shopseckill.entity.OauthToken">
     insert into oauth_token
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -121,8 +92,14 @@
       <if test="accessToken != null">
         access_token,
       </if>
+      <if test="refreshToken != null">
+        refresh_token,
+      </if>
       <if test="expiryDate != null">
         expiry_date,
+      </if>
+      <if test="refreshExpiryDate != null">
+        refresh_expiry_date,
       </if>
       <if test="createDate != null">
         create_date,
@@ -144,8 +121,14 @@
       <if test="accessToken != null">
         #{accessToken,jdbcType=VARCHAR},
       </if>
+      <if test="refreshToken != null">
+        #{refreshToken,jdbcType=VARCHAR},
+      </if>
       <if test="expiryDate != null">
         #{expiryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refreshExpiryDate != null">
+        #{refreshExpiryDate,jdbcType=TIMESTAMP},
       </if>
       <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
@@ -158,54 +141,14 @@
       </if>
     </trim>
   </insert>
+
   <select id="countByExample" parameterType="com.caodaxing.shopseckill.entity.OauthTokenExample" resultType="java.lang.Long">
     select count(*) from oauth_token
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update oauth_token
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=BIGINT},
-      </if>
-      <if test="record.oauthClientId != null">
-        oauth_client_id = #{record.oauthClientId,jdbcType=BIGINT},
-      </if>
-      <if test="record.accessToken != null">
-        access_token = #{record.accessToken,jdbcType=VARCHAR},
-      </if>
-      <if test="record.expiryDate != null">
-        expiry_date = #{record.expiryDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.createDate != null">
-        create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.updateDate != null">
-        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.isDelete != null">
-        is_delete = #{record.isDelete,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update oauth_token
-    set id = #{record.id,jdbcType=BIGINT},
-      oauth_client_id = #{record.oauthClientId,jdbcType=BIGINT},
-      access_token = #{record.accessToken,jdbcType=VARCHAR},
-      expiry_date = #{record.expiryDate,jdbcType=TIMESTAMP},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
-      is_delete = #{record.isDelete,jdbcType=INTEGER}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.caodaxing.shopseckill.entity.OauthToken">
     update oauth_token
     <set>
@@ -215,8 +158,14 @@
       <if test="accessToken != null">
         access_token = #{accessToken,jdbcType=VARCHAR},
       </if>
+      <if test="refreshToken != null">
+        refresh_token = #{refreshToken,jdbcType=VARCHAR},
+      </if>
       <if test="expiryDate != null">
         expiry_date = #{expiryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refreshExpiryDate != null">
+        refresh_expiry_date = #{refreshExpiryDate,jdbcType=TIMESTAMP},
       </if>
       <if test="createDate != null">
         create_date = #{createDate,jdbcType=TIMESTAMP},
@@ -230,11 +179,14 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.caodaxing.shopseckill.entity.OauthToken">
     update oauth_token
     set oauth_client_id = #{oauthClientId,jdbcType=BIGINT},
       access_token = #{accessToken,jdbcType=VARCHAR},
+      refresh_token = #{refreshToken,jdbcType=VARCHAR},
       expiry_date = #{expiryDate,jdbcType=TIMESTAMP},
+      refresh_expiry_date = #{refreshExpiryDate,jdbcType=TIMESTAMP},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       is_delete = #{isDelete,jdbcType=INTEGER}

@@ -1,25 +1,18 @@
 package com.caodaxing.shopseckill.security;
 
+import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.caodaxing.shopseckill.common.enums.OAuth2Status;
 import com.caodaxing.shopseckill.entity.OauthToken;
-import com.caodaxing.shopseckill.exception.oauth2.OAuth2Exception;
 import com.caodaxing.shopseckill.exception.oauth2.OAuth2TokenExpiryException;
 import com.caodaxing.shopseckill.exception.oauth2.OAuth2TokenNullException;
 import com.caodaxing.shopseckill.exception.oauth2.OAuth2TokenValidException;
 import com.caodaxing.shopseckill.service.oauth2.OauthTokenService;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.oltu.oauth2.as.response.OAuthASResponse;
-import org.apache.oltu.oauth2.common.error.OAuthError;
-import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
-import org.apache.oltu.oauth2.common.message.OAuthResponse;
-import org.apache.oltu.oauth2.common.message.types.ParameterStyle;
-import org.apache.oltu.oauth2.rs.request.OAuthAccessResourceRequest;
+import org.apache.oltu.oauth2.common.utils.OAuthUtils;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -44,11 +37,11 @@ public class OAuth2Filter extends AccessControlFilter {
         HttpServletResponse response = WebUtils.toHttp(servletResponse);
         response.setContentType("application/json;charset=utf-8");
         try {
-            String accessToken = request.getParameter("access_token");
-            if(accessToken == null){
+            String accessToken = this.getAccessToken(request);
+            if(StringUtils.isEmpty(accessToken)){
                 throw new OAuth2TokenNullException(OAuth2Status.TOKEN_ISNULL.getMsg());
             }
-            OauthToken oauthToken = oauthTokenService.queryOauthTokenBy(accessToken);
+            OauthToken oauthToken = oauthTokenService.queryOauthTokenByAccessToken(accessToken);
             if (oauthToken == null) {
                 throw new OAuth2TokenValidException(OAuth2Status.TOKEN_ERROR.getMsg());
             }
@@ -76,6 +69,15 @@ public class OAuth2Filter extends AccessControlFilter {
         return true;
     }
 
+    private String getAccessToken(HttpServletRequest request)throws Exception{
+        String accessToken = request.getParameter("access_token");
+        if(StringUtils.isEmpty(accessToken)){
+            String authorize = request.getHeader("Authorization");
+            accessToken = OAuthUtils.getAuthHeaderField(authorize);
+        }
+        return accessToken;
+    }
+
     private void responseMessage(HttpServletResponse response, String body,Integer status) throws Exception {
         response.setStatus(status);
         PrintWriter writer = response.getWriter();
@@ -84,15 +86,4 @@ public class OAuth2Filter extends AccessControlFilter {
         writer.close();
     }
 
-//    private static List<String> list = Lists.newArrayList();
-
-//    public static void main(String[] args){
-//        list.add("aaa");
-//        list.add("bbb");
-//        String s = "bbb";
-//        System.out.println(list.contains(s));
-//        list.remove("bbb");
-//        System.out.println(JSON.toJSONString(list,true));
-//        System.out.println(JSON.toJSONString(OAuth2Status.TOKEN_ERROR.toReturns()));
-//    }
 }

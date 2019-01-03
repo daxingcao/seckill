@@ -68,7 +68,7 @@ public class LoginController {
 			String prevRequest = null;
 			if(savedRequest != null && savedRequest.getMethod().equalsIgnoreCase(AccessControlFilter.GET_METHOD)) {
 				prevRequest = savedRequest.getRequestUrl();
-				if(prevRequest.startsWith(shiroFilter.getLoginUrl())) {
+				if(prevRequest.endsWith(shiroFilter.getLoginUrl())||prevRequest.equals("/")) {
 					prevRequest = null;
 				}
 			}

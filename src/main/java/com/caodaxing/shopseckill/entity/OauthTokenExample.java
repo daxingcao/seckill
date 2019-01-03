@@ -295,6 +295,76 @@ public class OauthTokenExample {
             return (Criteria) this;
         }
 
+        public Criteria andRefreshTokenIsNull() {
+            addCriterion("refresh_token is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTokenIsNotNull() {
+            addCriterion("refresh_token is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTokenEqualTo(String value) {
+            addCriterion("refresh_token =", value, "refreshToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTokenNotEqualTo(String value) {
+            addCriterion("refresh_token <>", value, "refreshToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTokenGreaterThan(String value) {
+            addCriterion("refresh_token >", value, "refreshToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTokenGreaterThanOrEqualTo(String value) {
+            addCriterion("refresh_token >=", value, "refreshToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTokenLessThan(String value) {
+            addCriterion("refresh_token <", value, "refreshToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTokenLessThanOrEqualTo(String value) {
+            addCriterion("refresh_token <=", value, "refreshToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTokenLike(String value) {
+            addCriterion("refresh_token like", value, "refreshToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTokenNotLike(String value) {
+            addCriterion("refresh_token not like", value, "refreshToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTokenIn(List<String> values) {
+            addCriterion("refresh_token in", values, "refreshToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTokenNotIn(List<String> values) {
+            addCriterion("refresh_token not in", values, "refreshToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTokenBetween(String value1, String value2) {
+            addCriterion("refresh_token between", value1, value2, "refreshToken");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTokenNotBetween(String value1, String value2) {
+            addCriterion("refresh_token not between", value1, value2, "refreshToken");
+            return (Criteria) this;
+        }
+
         public Criteria andExpiryDateIsNull() {
             addCriterion("expiry_date is null");
             return (Criteria) this;
@@ -352,6 +422,66 @@ public class OauthTokenExample {
 
         public Criteria andExpiryDateNotBetween(Date value1, Date value2) {
             addCriterion("expiry_date not between", value1, value2, "expiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshExpiryDateIsNull() {
+            addCriterion("refresh_expiry_date is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshExpiryDateIsNotNull() {
+            addCriterion("refresh_expiry_date is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshExpiryDateEqualTo(Date value) {
+            addCriterion("refresh_expiry_date =", value, "refreshExpiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshExpiryDateNotEqualTo(Date value) {
+            addCriterion("refresh_expiry_date <>", value, "refreshExpiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshExpiryDateGreaterThan(Date value) {
+            addCriterion("refresh_expiry_date >", value, "refreshExpiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshExpiryDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("refresh_expiry_date >=", value, "refreshExpiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshExpiryDateLessThan(Date value) {
+            addCriterion("refresh_expiry_date <", value, "refreshExpiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshExpiryDateLessThanOrEqualTo(Date value) {
+            addCriterion("refresh_expiry_date <=", value, "refreshExpiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshExpiryDateIn(List<Date> values) {
+            addCriterion("refresh_expiry_date in", values, "refreshExpiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshExpiryDateNotIn(List<Date> values) {
+            addCriterion("refresh_expiry_date not in", values, "refreshExpiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshExpiryDateBetween(Date value1, Date value2) {
+            addCriterion("refresh_expiry_date between", value1, value2, "refreshExpiryDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshExpiryDateNotBetween(Date value1, Date value2) {
+            addCriterion("refresh_expiry_date not between", value1, value2, "refreshExpiryDate");
             return (Criteria) this;
         }
 

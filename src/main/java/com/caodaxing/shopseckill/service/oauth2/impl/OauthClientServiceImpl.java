@@ -1,5 +1,6 @@
 package com.caodaxing.shopseckill.service.oauth2.impl;
 
+import com.caodaxing.shopseckill.common.SystemFiled;
 import com.caodaxing.shopseckill.dao.OauthClientMapper;
 import com.caodaxing.shopseckill.entity.OauthClient;
 import com.caodaxing.shopseckill.entity.OauthClientExample;
@@ -18,16 +19,6 @@ public class OauthClientServiceImpl implements OauthClientService {
     @Override
     public long countByExample(OauthClientExample example) {
         return oauthClientMapper.countByExample(example);
-    }
-
-    @Override
-    public int deleteByExample(OauthClientExample example) {
-        return oauthClientMapper.deleteByExample(example);
-    }
-
-    @Override
-    public int deleteByPrimaryKey(Long id) {
-        return oauthClientMapper.deleteByPrimaryKey(id);
     }
 
     @Override
@@ -51,16 +42,6 @@ public class OauthClientServiceImpl implements OauthClientService {
     }
 
     @Override
-    public int updateByExampleSelective(OauthClient record, OauthClientExample example) {
-        return oauthClientMapper.updateByExampleSelective(record, example);
-    }
-
-    @Override
-    public int updateByExample(OauthClient record, OauthClientExample example) {
-        return oauthClientMapper.updateByExample(record, example);
-    }
-
-    @Override
     public int updateByPrimaryKeySelective(OauthClient record) {
         return oauthClientMapper.updateByPrimaryKeySelective(record);
     }
@@ -68,5 +49,27 @@ public class OauthClientServiceImpl implements OauthClientService {
     @Override
     public int updateByPrimaryKey(OauthClient record) {
         return oauthClientMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public OauthClient checkClient(String clientId, String clientSecret) {
+        OauthClientExample example = new OauthClientExample();
+        example.createCriteria().andClientIdEqualTo(clientId).andClientSecretEqualTo(clientSecret).andIsDeleteEqualTo(SystemFiled.DeleteStatus.NOT_DELETED.getCode());
+        List<OauthClient> lists = this.selectByExample(example);
+        if(lists != null && !lists.isEmpty()){
+            return lists.get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public OauthClient isExistClient(String clientId) {
+        OauthClientExample example = new OauthClientExample();
+        example.createCriteria().andClientIdEqualTo(clientId).andIsDeleteEqualTo(SystemFiled.DeleteStatus.NOT_DELETED.getCode());
+        List<OauthClient> list = this.selectByExample(example);
+        if(list != null && !list.isEmpty()){
+            return list.get(0);
+        }
+        return null;
     }
 }
