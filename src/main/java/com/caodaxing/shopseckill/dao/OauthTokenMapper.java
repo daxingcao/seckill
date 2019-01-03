@@ -3,7 +3,6 @@ package com.caodaxing.shopseckill.dao;
 import com.caodaxing.shopseckill.entity.OauthToken;
 import com.caodaxing.shopseckill.entity.OauthTokenExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface OauthTokenMapper {
     long countByExample(OauthTokenExample example);

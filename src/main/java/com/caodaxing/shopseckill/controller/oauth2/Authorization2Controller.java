@@ -107,11 +107,4 @@ public class Authorization2Controller {
         writer.close();
     }
 
-    public static void main(String[] args) {
-        String s = "test:E10ADC3949BA59ABBE56E057F20F883E";
-        String news = Base64.encodeBase64String(s.getBytes());
-
-        System.out.println(news);
-    }
-
 }

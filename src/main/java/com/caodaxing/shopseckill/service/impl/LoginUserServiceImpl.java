@@ -22,16 +22,6 @@ public class LoginUserServiceImpl implements LoginUserService {
 	}
 
 	@Override
-	public int deleteByExample(LoginUserExample example) {
-		return loginUserDao.deleteByExample(example);
-	}
-
-	@Override
-	public int deleteByPrimaryKey(Long id) {
-		return loginUserDao.deleteByPrimaryKey(id);
-	}
-
-	@Override
 	public int insert(LoginUser record) {
 		return loginUserDao.insert(record);
 	}
@@ -49,16 +39,6 @@ public class LoginUserServiceImpl implements LoginUserService {
 	@Override
 	public LoginUser selectByPrimaryKey(Long id) {
 		return loginUserDao.selectByPrimaryKey(id);
-	}
-
-	@Override
-	public int updateByExampleSelective(LoginUser record, LoginUserExample example) {
-		return loginUserDao.updateByExampleSelective(record, example);
-	}
-
-	@Override
-	public int updateByExample(LoginUser record, LoginUserExample example) {
-		return loginUserDao.updateByExample(record, example);
 	}
 
 	@Override
