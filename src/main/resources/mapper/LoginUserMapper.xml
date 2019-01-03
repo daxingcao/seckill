@@ -41,39 +41,12 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
+
   <sql id="Base_Column_List">
     id, USERNAME, PASSWORD, LAST_DATE, CREATE_DATE, UPDATE_DATE, LOGIN_STATUS, USER_ID, 
     HEAD_FILE_ID
   </sql>
+
   <select id="selectByExample" parameterType="com.caodaxing.shopseckill.entity.LoginUserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -88,22 +61,14 @@
       order by ${orderByClause}
     </if>
   </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from login_user
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from login_user
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.caodaxing.shopseckill.entity.LoginUserExample">
-    delete from login_user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
+
   <insert id="insert" parameterType="com.caodaxing.shopseckill.entity.LoginUser">
     insert into login_user (id, USERNAME, PASSWORD, 
       LAST_DATE, CREATE_DATE, UPDATE_DATE, 
@@ -114,6 +79,7 @@
       #{loginStatus,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{headFileId,jdbcType=INTEGER}
       )
   </insert>
+
   <insert id="insertSelective" parameterType="com.caodaxing.shopseckill.entity.LoginUser">
     insert into login_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -175,62 +141,14 @@
       </if>
     </trim>
   </insert>
+
   <select id="countByExample" parameterType="com.caodaxing.shopseckill.entity.LoginUserExample" resultType="java.lang.Long">
     select count(*) from login_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update login_user
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=BIGINT},
-      </if>
-      <if test="record.username != null">
-        USERNAME = #{record.username,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null">
-        PASSWORD = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lastDate != null">
-        LAST_DATE = #{record.lastDate,jdbcType=DATE},
-      </if>
-      <if test="record.createDate != null">
-        CREATE_DATE = #{record.createDate,jdbcType=DATE},
-      </if>
-      <if test="record.updateDate != null">
-        UPDATE_DATE = #{record.updateDate,jdbcType=DATE},
-      </if>
-      <if test="record.loginStatus != null">
-        LOGIN_STATUS = #{record.loginStatus,jdbcType=INTEGER},
-      </if>
-      <if test="record.userId != null">
-        USER_ID = #{record.userId,jdbcType=INTEGER},
-      </if>
-      <if test="record.headFileId != null">
-        HEAD_FILE_ID = #{record.headFileId,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update login_user
-    set id = #{record.id,jdbcType=BIGINT},
-      USERNAME = #{record.username,jdbcType=VARCHAR},
-      PASSWORD = #{record.password,jdbcType=VARCHAR},
-      LAST_DATE = #{record.lastDate,jdbcType=DATE},
-      CREATE_DATE = #{record.createDate,jdbcType=DATE},
-      UPDATE_DATE = #{record.updateDate,jdbcType=DATE},
-      LOGIN_STATUS = #{record.loginStatus,jdbcType=INTEGER},
-      USER_ID = #{record.userId,jdbcType=INTEGER},
-      HEAD_FILE_ID = #{record.headFileId,jdbcType=INTEGER}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.caodaxing.shopseckill.entity.LoginUser">
     update login_user
     <set>
@@ -261,6 +179,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.caodaxing.shopseckill.entity.LoginUser">
     update login_user
     set USERNAME = #{username,jdbcType=VARCHAR},

@@ -4,10 +4,6 @@ import java.security.MessageDigest;
 
 public class MD5Utils {
 
-//    public static void main(String[] args) {  
-//        String pwd = getMD5("123456");  
-//        System.out.println(pwd);  
-//    }  
    
    //生成MD5  
     public static String getMD5(String message) {  

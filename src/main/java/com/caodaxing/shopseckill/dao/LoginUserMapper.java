@@ -3,14 +3,9 @@ package com.caodaxing.shopseckill.dao;
 import com.caodaxing.shopseckill.entity.LoginUser;
 import com.caodaxing.shopseckill.entity.LoginUserExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface LoginUserMapper {
     long countByExample(LoginUserExample example);
-
-    int deleteByExample(LoginUserExample example);
-
-    int deleteByPrimaryKey(Long id);
 
     int insert(LoginUser record);
 
@@ -19,10 +14,6 @@ public interface LoginUserMapper {
     List<LoginUser> selectByExample(LoginUserExample example);
 
     LoginUser selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("record") LoginUser record, @Param("example") LoginUserExample example);
-
-    int updateByExample(@Param("record") LoginUser record, @Param("example") LoginUserExample example);
 
     int updateByPrimaryKeySelective(LoginUser record);
 
