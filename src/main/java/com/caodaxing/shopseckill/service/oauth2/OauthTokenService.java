@@ -4,8 +4,6 @@ import com.caodaxing.shopseckill.entity.OauthToken;
 import com.caodaxing.shopseckill.entity.OauthTokenExample;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.apache.oltu.oauth2.common.message.OAuthResponse;
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface OauthTokenService {

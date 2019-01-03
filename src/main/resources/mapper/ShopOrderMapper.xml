@@ -37,38 +37,11 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
+
   <sql id="Base_Column_List">
     user_id, shop_code, order_code, create_time, is_delete
   </sql>
+
   <select id="selectByExample" parameterType="com.caodaxing.shopseckill.entity.ShopOrderExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -83,6 +56,7 @@
       order by ${orderByClause}
     </if>
   </select>
+
   <select id="selectByPrimaryKey" parameterType="com.caodaxing.shopseckill.entity.ShopOrderKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -90,21 +64,12 @@
     where user_id = #{userId,jdbcType=BIGINT}
       and shop_code = #{shopCode,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.caodaxing.shopseckill.entity.ShopOrderKey">
-    delete from shop_order
-    where user_id = #{userId,jdbcType=BIGINT}
-      and shop_code = #{shopCode,jdbcType=VARCHAR}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.caodaxing.shopseckill.entity.ShopOrderExample">
-    delete from shop_order
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
+
   <insert id="insert" parameterType="com.caodaxing.shopseckill.entity.ShopOrder">
     insert ignore into shop_order (user_id, shop_code, order_code)
     values (#{userId,jdbcType=BIGINT}, #{shopCode,jdbcType=VARCHAR}, #{orderCode,jdbcType=VARCHAR})
   </insert>
+
   <insert id="insertSelective" parameterType="com.caodaxing.shopseckill.entity.ShopOrder">
     insert into shop_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -142,46 +107,14 @@
       </if>
     </trim>
   </insert>
+
   <select id="countByExample" parameterType="com.caodaxing.shopseckill.entity.ShopOrderExample" resultType="java.lang.Long">
     select count(*) from shop_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update shop_order
-    <set>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=BIGINT},
-      </if>
-      <if test="record.shopCode != null">
-        shop_code = #{record.shopCode,jdbcType=VARCHAR},
-      </if>
-      <if test="record.orderCode != null">
-        order_code = #{record.orderCode,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.isDelete != null">
-        is_delete = #{record.isDelete,jdbcType=TINYINT},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update shop_order
-    set user_id = #{record.userId,jdbcType=BIGINT},
-      shop_code = #{record.shopCode,jdbcType=VARCHAR},
-      order_code = #{record.orderCode,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      is_delete = #{record.isDelete,jdbcType=TINYINT}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.caodaxing.shopseckill.entity.ShopOrder">
     update shop_order
     <set>
@@ -198,6 +131,7 @@
     where user_id = #{userId,jdbcType=BIGINT}
       and shop_code = #{shopCode,jdbcType=VARCHAR}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.caodaxing.shopseckill.entity.ShopOrder">
     update shop_order
     set order_code = #{orderCode,jdbcType=VARCHAR},

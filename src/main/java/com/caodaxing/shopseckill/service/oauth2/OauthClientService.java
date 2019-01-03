@@ -2,7 +2,6 @@ package com.caodaxing.shopseckill.service.oauth2;
 
 import com.caodaxing.shopseckill.entity.OauthClient;
 import com.caodaxing.shopseckill.entity.OauthClientExample;
-
 import java.util.List;
 
 public interface OauthClientService {
