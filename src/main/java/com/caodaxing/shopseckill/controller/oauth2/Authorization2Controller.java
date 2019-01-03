@@ -6,7 +6,6 @@ import com.caodaxing.shopseckill.entity.OauthClient;
 import com.caodaxing.shopseckill.entity.OauthToken;
 import com.caodaxing.shopseckill.service.oauth2.OauthClientService;
 import com.caodaxing.shopseckill.service.oauth2.OauthTokenService;
-import com.caodaxing.shopseckill.utils.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.oltu.oauth2.as.issuer.MD5Generator;
@@ -29,7 +28,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
-import java.util.Map;
 
 @Slf4j
 @Controller
