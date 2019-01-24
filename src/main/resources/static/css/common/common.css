@@ -1,0 +1,130 @@
+.my-popover {
+    position: absolute;
+    width: fit-content;
+}
+
+.left {
+    margin-left: 11px;
+}
+
+.my-popover > .popover-msg {
+    width: fit-content;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 7px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.my-popover > .popover-msg > .remove {
+    font-size: 12px;
+    margin-left: 10px;
+    color: black;
+    opacity: .4;
+}
+
+.my-popover > .popover-msg > .remove:hover {
+    opacity: .8;
+}
+
+.my-popover.left > .arrow {
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    margin-top: -11px;
+    border-width: 11px 11px 11px 0;
+    border-style: solid;
+    border-color: transparent #ccc;
+    z-index: 1024;
+}
+
+.my-popover.left > .arrow:after {
+    content: " ";
+    position: absolute;
+    bottom: -10px;
+    left: 1px;
+    border-style: solid;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent #fff;
+}
+
+.info {
+}
+
+.my-popover.info > .popover-msg {
+    color: navy;
+    background-color: #DAEDF6;
+}
+
+.my-popover.info > .arrow:after {
+    border-color: transparent #DAEDF6;
+}
+
+.success {
+}
+
+.my-popover.success > .popover-msg {
+    color: darkcyan;
+    background-color: #DFF0D9;
+}
+
+.my-popover.success > .arrow:after {
+    border-color: transparent #DFF0D9;
+}
+
+.warning {
+}
+
+.my-popover.warning > .popover-msg {
+    color: chocolate;
+    background-color: #FDF8E5;
+}
+
+.my-popover.warning > .arrow:after {
+    border-color: transparent #FDF8E5;
+}
+
+.danger {
+}
+
+.my-popover.danger > .popover-msg {
+    color: red;
+    background-color: #F2DEDF;
+}
+
+.my-popover.danger > .arrow:after {
+    border-color: transparent #F2DEDF;
+}
+
+/***修改bootstrap模态框样式***/
+.modal-content-format{
+    width:600px;
+    margin: 100px auto;
+}
+
+/***查询框样式***/
+.search-group {
+    line-height: 30px;
+    text-align: center;
+}
+
+.search-contain .search-padding-format {
+    padding-left: 0;
+}
+
+/***主体面板样式***/
+.common-panel {
+    width: calc(100% - 40px);
+    background-color: white;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.common-panel:after {
+    content: ' ';
+    display: table;
+    clear: both;
+}
