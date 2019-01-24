@@ -18,4 +18,8 @@ public interface OauthClientMapper {
     int updateByPrimaryKeySelective(OauthClient record);
 
     int updateByPrimaryKey(OauthClient record);
+
+    List<OauthClient> getListByParams(OauthClient oauthClient);
+
+    int batchDeleteById(List isList);
 }

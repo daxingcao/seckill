@@ -62,6 +62,29 @@
     </if>
   </select>
 
+  <select id="getListByParams" parameterType="com.caodaxing.shopseckill.entity.OauthClient" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM oauth_client
+    <where>
+      <if test="clientId != null">
+        client_id = #{clientId,jdbcType=VARCHAR}
+      </if>
+      <if test="clientName != null and clientName != ''">
+        AND client_name LIKE CONCAT('%',CONCAT(#{clientName,jdbcType=VARCHAR},'%'))
+      </if>
+      <if test="expiryDate != null">
+        AND expiry_date = #{expiryDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createDate != null">
+        AND create_date = #{createDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="isDelete != null">
+        AND is_delete = #{isDelete,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -178,6 +201,15 @@
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <update id="batchDeleteById" parameterType="java.util.List">
+    UPDATE oauth_client SET is_delete = 1
+    <where>
+      <foreach collection="list" item="id" separator="or">
+        id = #{id,jdbcType=BIGINT}
+      </foreach>
+    </where>
   </update>
 
   <update id="updateByPrimaryKey" parameterType="com.caodaxing.shopseckill.entity.OauthClient">
