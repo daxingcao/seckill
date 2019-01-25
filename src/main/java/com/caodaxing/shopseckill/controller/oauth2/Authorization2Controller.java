@@ -33,10 +33,6 @@ import java.time.LocalDateTime;
 @RequestMapping("/oauth")
 public class Authorization2Controller {
 
-    @Value("refresh.token.expiry.date")
-    private String REFRESH_TOKEN_EXPIRY_DATE;
-    @Value("access.token.expiry.date")
-    private String ACCESS_TOKEN_EXPIRY_DATE;
     @Autowired
     private OauthClientService oauthClientService;
     @Autowired

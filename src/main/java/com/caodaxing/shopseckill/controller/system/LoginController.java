@@ -66,7 +66,7 @@ public class LoginController {
 			String prevRequest = null;
 			if(savedRequest != null && savedRequest.getMethod().equalsIgnoreCase(AccessControlFilter.GET_METHOD)) {
 				prevRequest = savedRequest.getRequestUrl();
-				if(prevRequest.endsWith(shiroFilter.getLoginUrl())||prevRequest.equals("/")) {
+				if(prevRequest.endsWith(shiroFilter.getLoginUrl())||prevRequest.equals("/")|| prevRequest.endsWith("/favicon.ico")) {
 					prevRequest = null;
 				}
 			}
