@@ -28,10 +28,11 @@
     <div class="modal-content modal-content-format">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">添加应用</h4>
+            <h4 class="modal-title"><b id="client_modal_title"></b></h4>
         </div>
         <div class="modal-body">
             <form id="client_form" class="form-horizontal">
+                <input type="hidden" name="id" />
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Client Name</label>
                     <div class="col-sm-6">
@@ -65,16 +66,28 @@
     $("#condition_search").on('click',function () {
         oauth.selectSearch();
     });
+    //重置刷新
     $("#condition_reset").on('click',function () {
-        oauth.conditionReset();
+        oauth.resetRefresh();
     });
+    //批量删除
     $("#batch_delete").on('click',function () {
         oauth.batchDelete();
     });
+    //提交表单,添加应用
     $("#submit_form").on('click',function () {
-        oauth.addClient();
+        let id = $("input[name='id']").val();
+        if(common.is_empty(id)){
+            oauth.addOrUpdateClient(true);
+        }else{
+            oauth.addOrUpdateClient(false);
+        }
     })
+    //显示添加应用模态框
     $("#add_client").on('click',function () {
+        oauth.clearInputVal('client_form');
+        $("#client_modal_title").text("添加应用");
+        $("input[name='clientId']").attr('disabled',false);
         $("#client_model").modal('show');
     })
 </script>

@@ -8,6 +8,9 @@ let oauth = {
         },
         clientList: function () {
             return '/admin/client/clientList.do';
+        },
+        updateClient: function () {
+            return '/admin/client/updateClient.do';
         }
     },
     init: function () {
@@ -24,7 +27,7 @@ let oauth = {
         };
         oauth.table.object.search(parameter);
     },
-    conditionReset: function () {
+    resetRefresh: function () {
         oauth.table.object.search(null);
     },
     batchDelete: function () {
@@ -36,7 +39,6 @@ let oauth = {
                 contentType: 'application/json',
                 type: 'post',
                 success: function (data) {
-                    console.log(data);
                     if (data.success) {
                         oauth.table.object.search(null);
                     }
@@ -52,15 +54,47 @@ let oauth = {
             })
         }
     },
-    addClient: function () {
+    addOrUpdateClient: function (isAdd) {
         $.ajax({
-            url: oauth.URL.addClient(),
+            url: isAdd ? oauth.URL.addClient() : oauth.URL.updateClient(),
             data: $("#client_form").serialize(),
             type: 'post',
             success: function (data) {
-                console.log(data);
+                if (data.success) {
+                    $("#client_model").modal('hide');
+                    oauth.resetRefresh();
+                } else {
+                    common.add_popover({
+                        element: $("#client_modal_title"),
+                        direction: 'left',
+                        type: 'warning',
+                        msg: data.msg
+                    });
+                }
             }
         })
+    },
+    showUpdateModal: function (index) {
+        let data = this.table.object.getRowData(index);
+        try {
+            if (!common.is_empty(data.id)) {
+                $("#client_modal_title").text("更新应用");
+                oauth.clearInputVal('client_form');
+                $("input[name='id']").val(index);
+                $("input[name='clientName']").val(data.clientName);
+                let ele = $("input[name='clientId']");
+                ele.val(data.clientId);
+                ele.attr('disabled', true);
+                $("#client_model").modal('show');
+            } else {
+                throw new Error('主键id为空');
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    },
+    clearInputVal: function (formId) {
+        $("#" + formId + " input").val('');
     },
     commonMethod: {
         //提取数组中的单个字段组成新的数组
@@ -100,7 +134,11 @@ let oauth = {
                 sortable: true
             }, {
                 title: '操作',
-                align: 'center'
+                align: 'center',
+                formatter: function (value, row) {
+                    let html = "<a onclick='oauth.showUpdateModal(" + row.id + ")'>修改</a>";
+                    return html;
+                }
             }
         ]
     }

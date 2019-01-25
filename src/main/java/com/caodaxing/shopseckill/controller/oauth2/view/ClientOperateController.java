@@ -1,11 +1,14 @@
 package com.caodaxing.shopseckill.controller.oauth2.view;
 
+import com.alibaba.druid.util.StringUtils;
 import com.caodaxing.shopseckill.common.SystemFiled;
 import com.caodaxing.shopseckill.dto.PageSearcher;
 import com.caodaxing.shopseckill.entity.OauthClient;
 import com.caodaxing.shopseckill.service.oauth2.OauthClientService;
 import com.caodaxing.shopseckill.utils.MD5Utils;
 import com.caodaxing.shopseckill.utils.MessageUtil;
+import com.caodaxing.shopseckill.utils.StringUtil;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
@@ -34,7 +37,11 @@ public class ClientOperateController {
     @RequestMapping("/clientList.do")
     @ResponseBody
     public Map<String, Object> clientList(@RequestBody PageSearcher<OauthClient> data){
-        PageHelper.startPage(data.getPageNumber(),data.getPageSize());
+        Page page = PageHelper.startPage(data.getPageNumber(),data.getPageSize());
+        if(!StringUtils.isEmpty(data.getOrder()) && !StringUtils.isEmpty(data.getSort())){
+            String field = StringUtil.humpToUnderline(data.getSort());
+            page.setOrderBy(field + " " + data.getOrder());
+        }
         List<OauthClient> lists = oauthClientService.getListByParams(data.getData());
         PageInfo pageInfo = new PageInfo(lists);
         Map<String, Object> param = Maps.newHashMap();

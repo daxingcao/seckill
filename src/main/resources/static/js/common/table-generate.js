@@ -12,6 +12,7 @@ class TableGenerate {
             showColumns: true,
             method: 'post',
             pagination: true,
+            uniqueId: 'id',
             search: true,
             pageList: [1, 5, 10, 20],
             pageSize: 5,
@@ -51,6 +52,10 @@ class TableGenerate {
 
     getAllSelections() {
         return this.contain.bootstrapTable('getAllSelections');
+    }
+
+    getRowData(index){
+        return this.contain.bootstrapTable('getRowByUniqueId',index);
     }
 
 }
