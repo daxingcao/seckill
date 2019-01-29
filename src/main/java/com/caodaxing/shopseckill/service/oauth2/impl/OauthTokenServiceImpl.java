@@ -18,6 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * @author daxing.cao
+ */
 @Service
 public class OauthTokenServiceImpl implements OauthTokenService {
 
@@ -25,9 +28,9 @@ public class OauthTokenServiceImpl implements OauthTokenService {
     private OauthTokenMapper oauthTokenMapper;
 
     @Value("${refresh.token.expiry.date}")
-    private Long REFRESH_TOKEN_EXPIRY_DATE;
+    private Long refreshTokenExpiryDate;
     @Value("${access.token.expiry.date}")
-    private Long ACCESS_TOKEN_EXPIRY_DATE;
+    private Long accessTokenExpiryDate;
 
     @Override
     public long countByExample(OauthTokenExample example) {
@@ -76,7 +79,7 @@ public class OauthTokenServiceImpl implements OauthTokenService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public OAuthResponse generateAccessToken(Long oauthClientId) throws OAuthSystemException {
         try {
             //生成access_token
@@ -84,8 +87,8 @@ public class OauthTokenServiceImpl implements OauthTokenService {
             String accessToken = oAuthIssuer.accessToken();
             String refreshToken = oAuthIssuer.refreshToken();
             OauthToken oauthToken = OauthToken.builder().accessToken(accessToken).refreshToken(refreshToken).oauthClientId(oauthClientId)
-                    .createDate(LocalDateTime.now()).expiryDate(LocalDateTime.now().plusMinutes(ACCESS_TOKEN_EXPIRY_DATE))
-                    .refreshExpiryDate(LocalDateTime.now().plusDays(REFRESH_TOKEN_EXPIRY_DATE)).build();
+                    .createDate(LocalDateTime.now()).expiryDate(LocalDateTime.now().plusMinutes(accessTokenExpiryDate))
+                    .refreshExpiryDate(LocalDateTime.now().plusDays(refreshTokenExpiryDate)).build();
             this.insertSelective(oauthToken);
             return OAuthASResponse.tokenResponse(200).setAccessToken(accessToken).setRefreshToken(refreshToken).buildJSONMessage();
         } catch (Exception e) {
@@ -106,7 +109,7 @@ public class OauthTokenServiceImpl implements OauthTokenService {
 
     @Override
     public int updateAccessToken(Long id, String accessToken) {
-        OauthToken oauthToken = OauthToken.builder().id(id).accessToken(accessToken).expiryDate(LocalDateTime.now().plusMinutes(ACCESS_TOKEN_EXPIRY_DATE)).build();
+        OauthToken oauthToken = OauthToken.builder().id(id).accessToken(accessToken).expiryDate(LocalDateTime.now().plusMinutes(accessTokenExpiryDate)).build();
         return updateByPrimaryKeySelective(oauthToken);
     }
 

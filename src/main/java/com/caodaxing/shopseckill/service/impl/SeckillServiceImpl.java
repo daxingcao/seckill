@@ -1,5 +1,6 @@
 package com.caodaxing.shopseckill.service.impl;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -29,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SeckillServiceImpl implements SeckillService {
 
 	@Value("${seckill.token.base}")
-	private String base_token;
+	private String baseToken;
 
 	@Autowired
 	private ShopMapper shopMapper;
@@ -52,7 +53,7 @@ public class SeckillServiceImpl implements SeckillService {
 		if (queryShop == null) {
 			return new SeckillToken(false, shopCode);
 		}
-		long nowTime = new Date().getTime();
+		long nowTime = Instant.now().toEpochMilli();
 		long startTime = queryShop.getStartTime().getTime();
 		long endTime = queryShop.getEndTime().getTime();
 		// 判断该秒杀商品是否未开始或者已结束
@@ -65,9 +66,9 @@ public class SeckillServiceImpl implements SeckillService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = SeckillException.class)
 	public SeckillResult executeSecKill(String shopCode, Long userId, String token)
-			throws SeckillException, RepeatSeckillException, CloseSeckillException {
+			throws SeckillException {
 		try {
 			if (token == null || !token.equals(generateToken(shopCode))) {
 				throw new SeckillException("the shop token is compare failura,token may be modified !");
@@ -96,7 +97,7 @@ public class SeckillServiceImpl implements SeckillService {
 	}
 
 	private String generateToken(String shopCode) {
-		String originalToken = base_token + "/" + shopCode;
+		String originalToken = baseToken + "/" + shopCode;
 		String token = DigestUtils.md5DigestAsHex(originalToken.getBytes());
 		return token;
 	}

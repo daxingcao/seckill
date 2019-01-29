@@ -45,9 +45,9 @@ public class BaseAuthRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
-		//该取值为上面方法返回对象设置的第一个参数,
-		//例:new SimpleAuthenticationInfo(loginUser.getUsername(), loginUser.getPassword(), getName());
-		//得到的参数为loginUser.getUsername()的参数
+		/* 该取值为上面方法返回对象设置的第一个参数,
+		例:new SimpleAuthenticationInfo(loginUser.getUsername(), loginUser.getPassword(), getName()),
+		得到的参数为loginUser.getUsername()的参数 */
 		String loginName = (String)getAvailablePrincipal(principal);
 		if(loginName == null) {
 			return null;
@@ -63,17 +63,7 @@ public class BaseAuthRealm extends AuthorizingRealm {
 			//该角色拥有的权限
 			List<String> auths = new ArrayList<>();
 			//查询角色列表
-//			List<Role> roleList = userRoleService.getRoleByUserId(list.get(0).getId());
-//			for (Role role : roleList) {
-//				roles.add(role.getRoleName());
-//				//查询该角色拥有的权限
-//				AuthRoleExample auth = new AuthRoleExample();
-//				auth.createCriteria().andRoleIdEqualTo(role.getRoleId());
-//				List<AuthRole> authRoleList = authRoleService.selectByExample(auth);
-//				for (AuthRole authRole : authRoleList) {
-//					auths.add(authRole.getAuthUrl());
-//				}
-//			}
+			//TODO 查询数据该用户拥有的角色和权限,加入进SimpleAuthorizationInfo类中
 			//将角色和权限加入进SimpleAuthorizationInfo中
 			sai.addRoles(roles);
 			sai.addStringPermissions(auths);

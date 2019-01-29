@@ -24,8 +24,9 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
         SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(request);
         if (savedRequest != null) {
             successUrl = savedRequest.getRequestUrl();
-            if(successUrl == null || "".equals(successUrl))
-            	successUrl = getSuccessUrl();
+            if(successUrl == null || "".equals(successUrl)) {
+                successUrl = getSuccessUrl();
+            }
         }
 
         if (successUrl == null) {

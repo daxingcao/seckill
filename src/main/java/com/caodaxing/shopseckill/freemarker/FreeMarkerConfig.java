@@ -21,7 +21,7 @@ public class FreeMarkerConfig {
 	private FreeMarkerProperties properties;
 
 	@Bean
-	public FreeMarkerConfigurer setConfig(@Value("${auto_import}") String auto_imports) {
+	public FreeMarkerConfigurer setConfig(@Value("${auto_import}") String autoImports) {
 		FreeMarkerConfigurer config = new FreeMarkerConfigurer();
 		writeProperties(config);
 		Configuration configuration = null;
@@ -30,7 +30,7 @@ public class FreeMarkerConfig {
 		} catch (IOException | TemplateException e) {
 			e.printStackTrace();
 		}
-		setAutoImports(configuration, auto_imports);
+		setAutoImports(configuration, autoImports);
 		config.setConfiguration(configuration);
 		return config;
 	}
@@ -44,18 +44,18 @@ public class FreeMarkerConfig {
 		config.setFreemarkerSettings(settings);
 	}
 
-	private void setAutoImports(Configuration configuration, String auto_imports) {
-		if ("".equals(auto_imports.trim()) || "_".equals(auto_imports.trim())) {
+	private void setAutoImports(Configuration configuration, String autoImports) {
+		if ("".equals(autoImports.trim()) || "_".equals(autoImports.trim())) {
 			return;
 		}
-		String[] split = auto_imports.split(";");
+		String[] split = autoImports.split(";");
 		Map<String, String> imports = new HashMap<>(split.length);
 		for (String string : split) {
-			String[] key_value = string.split("as");
-			if (key_value.length != 2) {
+			String[] keyValue = string.split("as");
+			if (keyValue.length != 2) {
 				throw new RuntimeException("freemarker config is error,maybe is formatter error about auto_import!");
 			}
-			imports.put(key_value[1].trim(), key_value[0].trim());
+			imports.put(keyValue[1].trim(), keyValue[0].trim());
 		}
 		configuration.setAutoImports(imports);
 	}
