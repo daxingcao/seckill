@@ -7,7 +7,9 @@ import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.internal.DefaultCommentGenerator;
 import org.mybatis.generator.internal.util.StringUtility;
-
+/**
+ * @author daxing.cao
+ */
 public class MyCommentGenerator extends DefaultCommentGenerator {
 
 	private boolean userDefinedFlag = true;

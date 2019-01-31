@@ -5,7 +5,9 @@ import java.util.Map;
 
 import com.caodaxing.shopseckill.common.SystemFiled;
 import com.google.common.collect.Maps;
-
+/**
+ * @author daxing.cao
+ */
 public class MessageUtil {
 	
 	private String code;

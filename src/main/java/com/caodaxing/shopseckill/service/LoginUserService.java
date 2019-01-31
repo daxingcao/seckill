@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Param;
 import com.caodaxing.shopseckill.entity.LoginUser;
 import com.caodaxing.shopseckill.entity.LoginUserExample;
 
+/**
+ * @author daxing.cao
+ */
 public interface LoginUserService {
 	long countByExample(LoginUserExample example);
 

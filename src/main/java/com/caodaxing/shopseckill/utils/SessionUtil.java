@@ -5,7 +5,9 @@ import javax.servlet.http.HttpSession;
 
 import com.caodaxing.shopseckill.common.SystemFiled;
 import com.caodaxing.shopseckill.entity.LoginUser;
-
+/**
+ * @author daxing.cao
+ */
 public class SessionUtil {
 	
 	public static LoginUser getUserInfo(HttpServletRequest request) {

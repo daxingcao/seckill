@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import com.caodaxing.shopseckill.autoconfigure.SystemProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,14 +25,15 @@ import com.caodaxing.shopseckill.exception.SeckillException;
 import com.caodaxing.shopseckill.service.SeckillService;
 
 import lombok.extern.slf4j.Slf4j;
-
+/**
+ * @author daxing.cao
+ */
 @Slf4j
 @Service
 public class SeckillServiceImpl implements SeckillService {
 
-	@Value("${seckill.token.base}")
-	private String baseToken;
-
+	@Autowired
+	private SystemProperties properties;
 	@Autowired
 	private ShopMapper shopMapper;
 	@Autowired
@@ -97,7 +99,7 @@ public class SeckillServiceImpl implements SeckillService {
 	}
 
 	private String generateToken(String shopCode) {
-		String originalToken = baseToken + "/" + shopCode;
+		String originalToken = properties.getSalt() + "/" + shopCode;
 		String token = DigestUtils.md5DigestAsHex(originalToken.getBytes());
 		return token;
 	}

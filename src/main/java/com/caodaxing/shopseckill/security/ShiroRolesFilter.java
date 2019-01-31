@@ -15,7 +15,9 @@ import org.apache.shiro.web.util.WebUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.caodaxing.shopseckill.utils.MessageUtil;
-
+/**
+ * @author daxing.cao
+ */
 public class ShiroRolesFilter extends AuthorizationFilter {
 	
 	@Override
