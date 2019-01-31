@@ -1,5 +1,9 @@
 package com.caodaxing.shopseckill.common.enums;
 
+/**
+ * @author daxing.cao
+ * @description 秒杀操作信息类
+ */
 public enum SeckillStatus {
 
 	/**

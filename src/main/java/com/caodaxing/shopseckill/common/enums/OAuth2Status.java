@@ -1,6 +1,8 @@
 package com.caodaxing.shopseckill.common.enums;
 
 import com.alibaba.druid.util.StringUtils;
+import com.caodaxing.shopseckill.autoconfigure.SystemProperties;
+import com.caodaxing.shopseckill.utils.WebApplicationUtils;
 import com.google.common.collect.Maps;
 
 import java.io.IOException;
@@ -54,23 +56,10 @@ public enum OAuth2Status {
      */
     SYSTEM_ERROR(400,false,"系统错误!","system error!");
 
-    private static String LANGUAGE;
+    private static SystemProperties properties;
 
     static{
-        InputStream is = OAuth2Status.class.getClassLoader().getResourceAsStream("application.properties");
-        Properties properties = new Properties();
-        try {
-            properties.load(is);
-            LANGUAGE = properties.getProperty("oauth.message.language","CN");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        properties = WebApplicationUtils.getBean("systemProperties", SystemProperties.class);
     }
 
     private Integer statusCode;
@@ -94,9 +83,10 @@ public enum OAuth2Status {
     }
 
     public String getMsg(){
-        if(StringUtils.equals(LANGUAGE,"CN")){
+        String language = properties.getAuth().getMessageLanguage().toString();
+        if(StringUtils.equals(language,"CN")){
             return this.cnMsg;
-        }else if(StringUtils.equals(LANGUAGE,"EN")){
+        }else if(StringUtils.equals(language,"EN")){
             return this.enMsg;
         }else {
             return this.cnMsg;

@@ -1,7 +1,9 @@
 package com.caodaxing.shopseckill.entity;
 
 import java.util.Date;
-
+/**
+ * @author daxing.cao
+ */
 public class SimpleMessage {
     /**
      * 主键ID

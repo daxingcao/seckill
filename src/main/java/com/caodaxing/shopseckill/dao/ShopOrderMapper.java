@@ -6,6 +6,9 @@ import com.caodaxing.shopseckill.entity.ShopOrderKey;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
+/**
+ * @author daxing.cao
+ */
 public interface ShopOrderMapper {
     long countByExample(ShopOrderExample example);
 

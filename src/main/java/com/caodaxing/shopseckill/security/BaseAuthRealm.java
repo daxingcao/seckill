@@ -19,6 +19,9 @@ import com.caodaxing.shopseckill.dao.LoginUserMapper;
 import com.caodaxing.shopseckill.entity.LoginUser;
 import com.caodaxing.shopseckill.entity.LoginUserExample;
 
+/**
+ * @author daxing.cao
+ */
 public class BaseAuthRealm extends AuthorizingRealm {
 	
 	@Autowired

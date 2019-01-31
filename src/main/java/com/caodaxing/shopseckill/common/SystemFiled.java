@@ -1,5 +1,9 @@
 package com.caodaxing.shopseckill.common;
 
+/**
+ * @author daxing.cao
+ * @description 系统公共字段类
+ */
 public class SystemFiled {
 	
 	/**登录CODE*/

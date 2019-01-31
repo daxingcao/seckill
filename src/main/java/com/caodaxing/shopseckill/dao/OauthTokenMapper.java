@@ -4,6 +4,9 @@ import com.caodaxing.shopseckill.entity.OauthToken;
 import com.caodaxing.shopseckill.entity.OauthTokenExample;
 import java.util.List;
 
+/**
+ * @author daxing.cao
+ */
 public interface OauthTokenMapper {
     long countByExample(OauthTokenExample example);
 

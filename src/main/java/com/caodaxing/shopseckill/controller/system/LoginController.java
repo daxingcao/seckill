@@ -30,6 +30,10 @@ import com.caodaxing.shopseckill.utils.MessageUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @author daxing.cao
+ * @description 登录操作控制类
+ */
 @Slf4j
 @Controller
 @RequestMapping("/system")
@@ -75,7 +79,7 @@ public class LoginController {
 			if(prevRequest == null) {
 				prevRequest = shiroFilter.getSuccessUrl();
 			}
-			return MessageUtil.successMessage(prevRequest);
+			return MessageUtil.successMessage((Object)prevRequest);
 		}
 		return MessageUtil.errorMessage("该用户名不存在!");
 	}

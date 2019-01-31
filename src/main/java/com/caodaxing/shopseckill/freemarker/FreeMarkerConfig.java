@@ -4,24 +4,31 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
+import com.alibaba.druid.util.StringUtils;
+import com.caodaxing.shopseckill.autoconfigure.SystemProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.freemarker.FreeMarkerProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.util.Assert;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
-
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 
+/**
+ * @author daxing.cao
+ * @description 自定义freemarker配置
+ */
 @org.springframework.context.annotation.Configuration
 public class FreeMarkerConfig {
 
 	@Autowired
 	private FreeMarkerProperties properties;
+	@Autowired
+	private SystemProperties systemProperties;
 
 	@Bean
-	public FreeMarkerConfigurer setConfig(@Value("${auto_import}") String autoImports) {
+	public FreeMarkerConfigurer setConfig(SystemProperties systemProperties1) {
+		System.out.println(systemProperties.equals(systemProperties1));
 		FreeMarkerConfigurer config = new FreeMarkerConfigurer();
 		writeProperties(config);
 		Configuration configuration = null;
@@ -30,7 +37,10 @@ public class FreeMarkerConfig {
 		} catch (IOException | TemplateException e) {
 			e.printStackTrace();
 		}
-		setAutoImports(configuration, autoImports);
+		String autoImport = systemProperties.getFreemarkerImport();
+		if(!StringUtils.isEmpty(autoImport)){
+			this.setAutoImports(configuration, autoImport);
+		}
 		config.setConfiguration(configuration);
 		return config;
 	}
@@ -44,11 +54,9 @@ public class FreeMarkerConfig {
 		config.setFreemarkerSettings(settings);
 	}
 
-	private void setAutoImports(Configuration configuration, String autoImports) {
-		if ("".equals(autoImports.trim()) || "_".equals(autoImports.trim())) {
-			return;
-		}
-		String[] split = autoImports.split(";");
+	private void setAutoImports(Configuration configuration, String autoImport) {
+		Assert.notNull(autoImport,"auto_import must not null!");
+		String[] split = autoImport.split(";");
 		Map<String, String> imports = new HashMap<>(split.length);
 		for (String string : split) {
 			String[] keyValue = string.split("as");

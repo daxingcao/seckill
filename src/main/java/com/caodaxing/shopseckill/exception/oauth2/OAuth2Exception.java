@@ -1,5 +1,8 @@
 package com.caodaxing.shopseckill.exception.oauth2;
 
+/**
+ * @author daxing.cao
+ */
 public class OAuth2Exception extends RuntimeException {
 
     public OAuth2Exception() {
