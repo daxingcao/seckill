@@ -20,6 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 
+/**
+ * @author daxing.cao
+ */
 @Slf4j
 public class OAuth2Filter extends AccessControlFilter {
 

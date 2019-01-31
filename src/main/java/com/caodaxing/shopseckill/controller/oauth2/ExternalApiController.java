@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 
+/**
+ * @author daxing.cao
+ * @description 对外开放API接口控制类
+ */
 @Controller
 @RequestMapping("/open")
 public class ExternalApiController {

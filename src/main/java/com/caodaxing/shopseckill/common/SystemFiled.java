@@ -1,5 +1,9 @@
 package com.caodaxing.shopseckill.common;
 
+/**
+ * @author daxing.cao
+ * @description 系统公共字段类
+ */
 public class SystemFiled {
 	
 	/**登录CODE*/
@@ -18,7 +22,9 @@ public class SystemFiled {
 	public static final String USER_SESSION = "login_user";
 
 	public enum DeleteStatus{
+		/**未删除*/
 		NOT_DELETED(0,"未删除"),
+		/**已删除*/
 		IS_DELETED(1,"已删除");
 
 		private Integer code;

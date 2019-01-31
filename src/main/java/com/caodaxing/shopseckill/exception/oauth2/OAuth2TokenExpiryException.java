@@ -1,6 +1,7 @@
 package com.caodaxing.shopseckill.exception.oauth2;
 
 /**
+ * @author daxing.cao
  * token验证过时异常类
  */
 public class OAuth2TokenExpiryException extends OAuth2Exception {

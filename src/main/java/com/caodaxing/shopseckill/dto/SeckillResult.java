@@ -8,7 +8,7 @@ import com.caodaxing.shopseckill.entity.ShopOrder;
  * 
  * @version 1.0.0
  * @time 2018-11-14
- * @author Administrator
+ * @author daxing.cao
  *
  */
 public class SeckillResult {

@@ -8,7 +8,9 @@ import javax.servlet.ServletResponse;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
-
+/**
+ * @author daxing.cao
+ */
 public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 
 	@Override
@@ -24,8 +26,9 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
         SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(request);
         if (savedRequest != null) {
             successUrl = savedRequest.getRequestUrl();
-            if(successUrl == null || "".equals(successUrl))
-            	successUrl = getSuccessUrl();
+            if(successUrl == null || "".equals(successUrl)) {
+                successUrl = getSuccessUrl();
+            }
         }
 
         if (successUrl == null) {

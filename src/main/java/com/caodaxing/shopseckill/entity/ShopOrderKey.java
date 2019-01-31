@@ -1,5 +1,7 @@
 package com.caodaxing.shopseckill.entity;
-
+/**
+ * @author daxing.cao
+ */
 public class ShopOrderKey {
     /**
      * 用户id

@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.caodaxing.shopseckill.service.SeckillService;
 
+/**
+ * @author daxing.cao
+ * @description 主控制类
+ */
 @Controller
 @RequestMapping("/main")
 public class MainController {

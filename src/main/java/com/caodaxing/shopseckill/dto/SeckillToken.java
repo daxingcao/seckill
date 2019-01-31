@@ -2,7 +2,7 @@ package com.caodaxing.shopseckill.dto;
 
 /**
  * @description 封装秒杀地址的实体对象
- * @author Administrator
+ * @author daxing.cao
  *
  */
 public class SeckillToken {

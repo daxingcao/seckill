@@ -2,7 +2,7 @@ package com.caodaxing.shopseckill.exception;
 
 /**
  * 重复秒杀异常类
- * @author Administrator
+ * @author daxing.cao
  *
  */
 public class RepeatSeckillException extends SeckillException {

@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.caodaxing.shopseckill.common.SystemFiled;
-
+import com.google.common.collect.Maps;
+/**
+ * @author daxing.cao
+ */
 public class MessageUtil {
 	
 	private String code;
@@ -36,7 +39,7 @@ public class MessageUtil {
 	}
 	
 	public static Map<String, Object> errorMessage(String msg) {
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = Maps.newHashMap();
 		map.put("msg", msg);
 		map.put("success",false);
 		map.put("code", SystemFiled.FAIL_CODE);
@@ -56,7 +59,7 @@ public class MessageUtil {
 	}
 	
 	public static Map<String, Object> errorMessage(Object result){
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = Maps.newHashMap();
 		map.put("msg", SystemFiled.DEFAULT_FAIL_MSG);
 		map.put("code",SystemFiled.FAIL_CODE);
 		map.put("success", false);
@@ -65,7 +68,7 @@ public class MessageUtil {
 	}
 	
 	public static Map<String, Object> errorMessage(String msg,String code,Object result){
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = Maps.newHashMap();
 		map.put("msg", msg);
 		map.put("code", code);
 		map.put("result", result);
@@ -74,7 +77,7 @@ public class MessageUtil {
 	}
 	
 	public static Map<String, Object> successMessage(String msg){
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = Maps.newHashMap();
 		map.put("msg", msg);
 		map.put("success",true);
 		map.put("code", SystemFiled.SUCCESS_CODE);
@@ -94,7 +97,7 @@ public class MessageUtil {
 	}
 	
 	public static Map<String, Object> successMessage(Object result){
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = Maps.newHashMap();
 		map.put("msg", SystemFiled.DEFAULT_SUCCESS_MSG);
 		map.put("code",SystemFiled.SUCCESS_CODE);
 		map.put("success", true);
@@ -103,7 +106,7 @@ public class MessageUtil {
 	}
 	
 	public static Map<String, Object> successMessage(String msg,String code,Object result){
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = Maps.newHashMap();
 		map.put("msg", msg);
 		map.put("code", code);
 		map.put("result", result);

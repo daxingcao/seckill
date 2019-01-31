@@ -9,7 +9,9 @@ import com.caodaxing.shopseckill.dao.LoginUserMapper;
 import com.caodaxing.shopseckill.entity.LoginUser;
 import com.caodaxing.shopseckill.entity.LoginUserExample;
 import com.caodaxing.shopseckill.service.LoginUserService;
-
+/**
+ * @author daxing.cao
+ */
 @Service
 public class LoginUserServiceImpl implements LoginUserService {
 

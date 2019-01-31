@@ -7,17 +7,19 @@ import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.internal.DefaultCommentGenerator;
 import org.mybatis.generator.internal.util.StringUtility;
-
+/**
+ * @author daxing.cao
+ */
 public class MyCommentGenerator extends DefaultCommentGenerator {
 
-	private boolean USER_DEFINED_FLAG = true;
+	private boolean userDefinedFlag = true;
 	
 	/**
 	 * 实体类生成字段注解自定义
 	 */
 	@Override
 	public void addFieldComment(Field field, IntrospectedTable table, IntrospectedColumn column) {
-		if(USER_DEFINED_FLAG) {
+		if(userDefinedFlag) {
 			if(StringUtility.stringHasValue(column.getRemarks())) {
 				field.addJavaDocLine("/**");
 				field.addJavaDocLine(" * "+column.getRemarks());
@@ -33,7 +35,7 @@ public class MyCommentGenerator extends DefaultCommentGenerator {
 	 */
 	@Override
 	public void addComment(XmlElement xmlElement) {
-		if (USER_DEFINED_FLAG) {
+		if (userDefinedFlag) {
 			return;
 		}else {
 			super.addComment(xmlElement);
@@ -45,7 +47,7 @@ public class MyCommentGenerator extends DefaultCommentGenerator {
 	 */
 	@Override
 	public void addGeneralMethodComment(Method method, IntrospectedTable introspectedTable) {
-		if (USER_DEFINED_FLAG) {
+		if (userDefinedFlag) {
 			return;
 		}else {
 			super.addGeneralMethodComment(method, introspectedTable);
@@ -58,7 +60,7 @@ public class MyCommentGenerator extends DefaultCommentGenerator {
 	@Override
 	public void addGetterComment(Method method, IntrospectedTable introspectedTable,
 			IntrospectedColumn introspectedColumn) {
-		if (USER_DEFINED_FLAG) {
+		if (userDefinedFlag) {
 			
 		}else {
 			super.addGetterComment(method, introspectedTable, introspectedColumn);
@@ -71,7 +73,7 @@ public class MyCommentGenerator extends DefaultCommentGenerator {
 	@Override
 	public void addSetterComment(Method method, IntrospectedTable introspectedTable,
 			IntrospectedColumn introspectedColumn) {
-		if (USER_DEFINED_FLAG) {
+		if (userDefinedFlag) {
 			return;
 		} else {
 			super.addSetterComment(method, introspectedTable, introspectedColumn);
