@@ -22,10 +22,10 @@ var login={
             }
         })
         //自定义正则验证方法
-//        $.validator.addMethod("format",function(value,element,params){
-//        	var check = /^[1-9]+$/;
-//        	return this.optional(element) || (check.test(value));
-//        },"只能输入数字!");
+		$.validator.addMethod("format",function(value,element,params){
+		var check = /^[1-9]+$/;
+		return this.optional(element) || (check.test(value));
+		},"只能输入数字!");
 		$("#check-login").click(function(){
 			login.checkLogin();
 		});
@@ -47,10 +47,12 @@ var login={
 					 if(data.success){
 						 window.location.href=data.result;
 					 }else {
-						 $("#error-info").text(data.msg);
-						 $("#error-info").attr("class","show");
-						 $("#error-info").fadeOut(3000,function(){
-							 $("#error-info").attr("class","hidden");
+						 let error = $("#error-info");
+                         error.text(data.msg);
+                         error.attr("class","show");
+                         error.fadeIn(500);
+                         error.fadeOut(3000,function(){
+                             error.attr("class","hidden");
 						 });
 					 }
 				 }

@@ -26,4 +26,8 @@ public interface OauthClientService {
 
     OauthClient isExistClient(String clientId);
 
+    List<OauthClient> getListByParams(OauthClient oauthClient);
+
+    int batchDeleteById(List isList);
+
 }

@@ -75,7 +75,7 @@ public class ShiroAuthrentitionConfig {
 	@Bean(name="shiroFilter")
 	public ShiroFilterFactoryBean shiroFilter(SystemProperties properties) {
 		Assert.notNull(properties.getShiro(),"Shiro class must not null!");
-		SystemProperties.Shiro shiro = properties.getShiro();
+		SystemProperties.MyShiro shiro = properties.getShiro();
 		ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
 		shiroFilter.setLoginUrl(shiro.getLoginUrl());
 		//登录成功后跳转的地址

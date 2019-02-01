@@ -5,6 +5,7 @@ import com.caodaxing.shopseckill.dao.OauthClientMapper;
 import com.caodaxing.shopseckill.entity.OauthClient;
 import com.caodaxing.shopseckill.entity.OauthClientExample;
 import com.caodaxing.shopseckill.service.oauth2.OauthClientService;
+import com.caodaxing.shopseckill.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,8 +56,9 @@ public class OauthClientServiceImpl implements OauthClientService {
 
     @Override
     public OauthClient checkClient(String clientId, String clientSecret) {
+        String newSecret = MD5Utils.getMD5(clientSecret);
         OauthClientExample example = new OauthClientExample();
-        example.createCriteria().andClientIdEqualTo(clientId).andClientSecretEqualTo(clientSecret).andIsDeleteEqualTo(SystemFiled.DeleteStatus.NOT_DELETED.getCode());
+        example.createCriteria().andClientIdEqualTo(clientId).andClientSecretEqualTo(newSecret).andIsDeleteEqualTo(SystemFiled.DeleteStatus.NOT_DELETED.getCode());
         List<OauthClient> lists = this.selectByExample(example);
         if(lists != null && !lists.isEmpty()){
             return lists.get(0);
@@ -73,5 +75,20 @@ public class OauthClientServiceImpl implements OauthClientService {
             return list.get(0);
         }
         return null;
+    }
+
+    @Override
+    public List<OauthClient> getListByParams(OauthClient oauthClient) {
+        if(oauthClient != null){
+            oauthClient.setIsDelete(SystemFiled.DeleteStatus.NOT_DELETED.getCode());
+        }else {
+            oauthClient = OauthClient.builder().isDelete(SystemFiled.DeleteStatus.NOT_DELETED.getCode()).build();
+        }
+        return oauthClientMapper.getListByParams(oauthClient);
+    }
+
+    @Override
+    public int batchDeleteById(List isList) {
+        return oauthClientMapper.batchDeleteById(isList);
     }
 }

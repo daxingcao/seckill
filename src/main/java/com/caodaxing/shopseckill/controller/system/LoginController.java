@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author daxing.cao
- * @description 登录操作控制类
+ * @description 验证登录控制类
  */
 @Slf4j
 @Controller
@@ -43,8 +43,6 @@ public class LoginController {
 	private LoginUserService loginUserService;
 	@Autowired
 	private ShiroFilterFactoryBean shiroFilter;
-
-	private final String[] urlStr = new String[]{"/","/favicon.ico"};
 	
 	@PostMapping("/checkLogin.do")
 	@ResponseBody
@@ -72,7 +70,7 @@ public class LoginController {
 			String prevRequest = null;
 			if(savedRequest != null && savedRequest.getMethod().equalsIgnoreCase(AccessControlFilter.GET_METHOD)) {
 				prevRequest = savedRequest.getRequestUrl();
-				if(prevRequest.endsWith(shiroFilter.getLoginUrl())|| !checkSaveUrl(prevRequest)) {
+				if(prevRequest.endsWith(shiroFilter.getLoginUrl())|| this.checkSaveUrl(prevRequest)) {
 					prevRequest = null;
 				}
 			}
@@ -85,12 +83,7 @@ public class LoginController {
 	}
 
 	private boolean checkSaveUrl(String url){
-		for (String str : urlStr) {
-			if(StringUtils.equals(str,url)){
-				return false;
-			}
-		}
-		return true;
+		return StringUtils.equals("/",url) || StringUtils.equals("/favicon.ico", url);
 	}
 
 }

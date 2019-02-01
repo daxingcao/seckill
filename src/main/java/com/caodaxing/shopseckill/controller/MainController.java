@@ -17,17 +17,8 @@ import com.caodaxing.shopseckill.service.SeckillService;
 @RequestMapping("/main")
 public class MainController {
 	
-	@Autowired
-	private SeckillService seckillService;
-	
-	@RequestMapping(value="/{id}/test",method=RequestMethod.GET)
-	public String test(@PathVariable("id") String id) {
-		return "/system/index";
-	}
-	
 	@RequestMapping("/login.jhtml")
-	public String hello(Model model){
-		seckillService.shopList(1);
+	public String hello(){
 		return "/system/login";
 	}
 	
