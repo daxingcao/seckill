@@ -10,6 +10,9 @@ import org.apache.shiro.web.util.WebUtils;
 
 import com.caodaxing.shopseckill.common.SystemFiled;
 
+/**
+ * @author daxing.cao
+ */
 public class ShiroLogoutFilter extends LogoutFilter {
 
 	@Override

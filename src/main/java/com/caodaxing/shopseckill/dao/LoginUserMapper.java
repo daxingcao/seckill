@@ -4,6 +4,9 @@ import com.caodaxing.shopseckill.entity.LoginUser;
 import com.caodaxing.shopseckill.entity.LoginUserExample;
 import java.util.List;
 
+/**
+ * @author daxing.cao
+ */
 public interface LoginUserMapper {
     long countByExample(LoginUserExample example);
 

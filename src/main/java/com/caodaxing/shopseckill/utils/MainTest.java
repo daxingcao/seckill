@@ -7,7 +7,9 @@ import org.mybatis.generator.internal.DefaultShellCallback;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author daxing.cao
+ */
 public class MainTest {
 
     private final static String FILEPATH = System.getProperty("user.dir")+ "\\src\\main\\resources\\generatorConfig.xml";

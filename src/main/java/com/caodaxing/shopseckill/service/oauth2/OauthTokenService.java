@@ -5,7 +5,9 @@ import com.caodaxing.shopseckill.entity.OauthTokenExample;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.apache.oltu.oauth2.common.message.OAuthResponse;
 import java.util.List;
-
+/**
+ * @author daxing.cao
+ */
 public interface OauthTokenService {
 
     long countByExample(OauthTokenExample example);

@@ -3,7 +3,9 @@ package com.caodaxing.shopseckill.service.oauth2;
 import com.caodaxing.shopseckill.entity.OauthClient;
 import com.caodaxing.shopseckill.entity.OauthClientExample;
 import java.util.List;
-
+/**
+ * @author daxing.cao
+ */
 public interface OauthClientService {
 
     long countByExample(OauthClientExample example);

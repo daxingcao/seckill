@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import com.caodaxing.shopseckill.dao.SimpleMessageMapper;
 import com.caodaxing.shopseckill.entity.SimpleMessage;
 import com.caodaxing.shopseckill.service.SimpleMessageService;
-
+/**
+ * @author daxing.cao
+ */
 @Service
 public class SimpleMessageServiceImpl implements SimpleMessageService {
 

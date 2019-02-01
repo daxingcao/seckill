@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/**
+ * @author daxing.cao
+ */
 @Service
 public class OauthClientServiceImpl implements OauthClientService {
 

@@ -4,6 +4,9 @@ import java.util.List;
 import com.caodaxing.shopseckill.entity.SimpleMessage;
 import com.caodaxing.shopseckill.entity.SimpleMessageExample;
 
+/**
+ * @author daxing.cao
+ */
 public interface SimpleMessageMapper {
 	
     long countByExample(SimpleMessageExample example);

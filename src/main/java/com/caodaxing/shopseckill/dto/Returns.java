@@ -1,5 +1,9 @@
 package com.caodaxing.shopseckill.dto;
 
+/**
+ * @author daxing.cao
+ * @description 统一返回页面包装数据类
+ */
 public class Returns<T> {
 
 	private boolean success;

@@ -1,6 +1,8 @@
 package com.caodaxing.shopseckill.common.enums;
 
 import com.alibaba.druid.util.StringUtils;
+import com.caodaxing.shopseckill.autoconfigure.SystemProperties;
+import com.caodaxing.shopseckill.utils.WebApplicationUtils;
 import com.google.common.collect.Maps;
 
 import java.io.IOException;
@@ -8,36 +10,56 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * @author daxing.cao
+ */
 public enum OAuth2Status {
 
+    /**
+     * 验证通过
+     */
     SUCCESS(200,true, "验证通过!","authentication OK"),
+    /**
+     * client_id为空
+     */
     CLIENT_ID_NULL(100,false,"client_id为空!","client_id is null!"),
+    /**
+     * 应用不存在
+     */
     CLIENT_NOT_EXIST(101,false,"应用不存在!","client is not exist!"),
+    /**
+     * refresh_token错误
+     */
     REFRESH_TOKEN_ERROR(102,false,"refresh_token错误!","refresh_token is error!"),
+    /**
+     * refresh_token已过期
+     */
     REFRESH_TOKEN_EXPIRY(103,false,"refresh_token已过期!","refresh_token is expiry!"),
+    /**
+     * refresh_token为空
+     */
     REFRESH_TOKEN_NULL(104,false,"refresh_token为空!","refresh_token is null!"),
+    /**
+     * access_token错误
+     */
     TOKEN_ERROR(104,false,"access_token错误!","access_token is error!"),
+    /**
+     * access_token已过期
+     */
     TOKEN_EXPIRY(105,false,"access_token已过期!","access_token was expiry!"),
+    /**
+     * access_token为空
+     */
     TOKEN_ISNULL(106,false,"access_token为空!","access_token is null!"),
+    /**
+     * 系统错误
+     */
     SYSTEM_ERROR(400,false,"系统错误!","system error!");
 
-    private static String LANGUAGE;
+    private static SystemProperties properties;
 
     static{
-        InputStream is = OAuth2Status.class.getClassLoader().getResourceAsStream("application.properties");
-        Properties properties = new Properties();
-        try {
-            properties.load(is);
-            LANGUAGE = properties.getProperty("oauth.message.language","CN");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        properties = WebApplicationUtils.getBean("systemProperties", SystemProperties.class);
     }
 
     private Integer statusCode;
@@ -61,9 +83,10 @@ public enum OAuth2Status {
     }
 
     public String getMsg(){
-        if(StringUtils.equals(LANGUAGE,"CN")){
+        String language = properties.getAuth().getMessageLanguage().toString();
+        if(StringUtils.equals(language,"CN")){
             return this.cnMsg;
-        }else if(StringUtils.equals(LANGUAGE,"EN")){
+        }else if(StringUtils.equals(language,"EN")){
             return this.enMsg;
         }else {
             return this.cnMsg;
@@ -89,7 +112,7 @@ public enum OAuth2Status {
     public OAuth2Status valueOf(Integer status) {
         OAuth2Status[] msgStatuses = OAuth2Status.values();
         for (OAuth2Status msgStatus : msgStatuses) {
-            if(status == msgStatus.getStatusCode()){
+            if(status.equals(msgStatus.getStatusCode())){
                 return msgStatus;
             }
         }

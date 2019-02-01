@@ -25,6 +25,10 @@ import com.caodaxing.shopseckill.utils.SessionUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @author daxing.cao
+ * @description 秒杀商品控制类
+ */
 @Slf4j
 @Controller
 @RequestMapping("/seckill")
