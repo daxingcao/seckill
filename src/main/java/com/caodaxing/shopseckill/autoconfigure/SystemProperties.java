@@ -1,7 +1,6 @@
 package com.caodaxing.shopseckill.autoconfigure;
 
 import com.caodaxing.shopseckill.autoconfigure.include.LanguageInclude;
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Component;
  * @author daxing.cao
  * @description 系统配置类
  */
-@Data
 @Component
 @ConfigurationProperties(
         prefix = "system.config"
@@ -19,18 +17,49 @@ public class SystemProperties {
     private String salt;
     private String multipartPath;
     private String freemarkerImport;
-    private final SystemProperties.Auth auth;
-    private final SystemProperties.Shiro shiro;
+    private final SystemProperties.MyAuth auth;
+    private final SystemProperties.MyShiro shiro;
 
-    SystemProperties(){
-        System.out.println("SystemProperties被初始化了");
+    public SystemProperties(){
         this.salt = "";
         this.multipartPath = System.getProperty("user.dir")+"/data/tmp";
-        this.auth = new SystemProperties.Auth();
-        this.shiro = new SystemProperties.Shiro();
+        this.auth = new SystemProperties.MyAuth();
+        this.shiro = new SystemProperties.MyShiro();
     }
 
-    public static class Auth{
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getMultipartPath() {
+        return multipartPath;
+    }
+
+    public void setMultipartPath(String multipartPath) {
+        this.multipartPath = multipartPath;
+    }
+
+    public String getFreemarkerImport() {
+        return freemarkerImport;
+    }
+
+    public void setFreemarkerImport(String freemarkerImport) {
+        this.freemarkerImport = freemarkerImport;
+    }
+
+    public SystemProperties.MyAuth getAuth() {
+        return this.auth;
+    }
+
+    public SystemProperties.MyShiro getShiro() {
+        return this.shiro;
+    }
+
+    public static class MyAuth{
 
         private LanguageInclude messageLanguage;
         /**
@@ -67,7 +96,7 @@ public class SystemProperties {
         }
     }
 
-    public static class Shiro{
+    public static class MyShiro{
 
         private String loginUrl;
         private String successUrl;

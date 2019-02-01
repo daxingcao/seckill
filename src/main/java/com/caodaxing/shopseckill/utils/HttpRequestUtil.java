@@ -18,6 +18,10 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+/**
+ * @author daxing.cao
+ * @description http请求工具类
+ */
 public class HttpRequestUtil {
 
     private volatile static Builder builder;
@@ -41,8 +45,9 @@ public class HttpRequestUtil {
     }
 
     private static String jointUrl(String originalUrl){
-        if(builder == null || builder.getParameters() == null)
+        if(builder == null || builder.getParameters() == null){
             return originalUrl;
+        }
         StringBuffer newUrl = new StringBuffer(originalUrl);
         for (Parameter parameter : builder.getParameters()) {
             if(newUrl.indexOf("?") <= 0){
@@ -72,8 +77,9 @@ public class HttpRequestUtil {
     }
 
     private static void clear() {
-        if(builder != null)
+        if(builder != null){
             builder.clear();
+        }
         try {
             if (httpClient != null) {
                 httpClient.close();

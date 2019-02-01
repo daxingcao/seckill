@@ -3,6 +3,7 @@ package com.caodaxing.shopseckill.security;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.druid.util.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -33,12 +34,10 @@ public class BaseAuthRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		UsernamePasswordToken upToken = (UsernamePasswordToken) token;
-		LoginUserExample example = new LoginUserExample();
-		example.createCriteria().andUsernameEqualTo(upToken.getUsername());
-		List<LoginUser> list = loginUserMapper.selectByExample(example);
-		if(list.size() > 0) {
-			LoginUser loginUser = list.get(0);
-			return new SimpleAuthenticationInfo(loginUser.getUsername(), loginUser.getPassword(), getName());
+		String userName = upToken.getUsername();
+		char[] password = upToken.getPassword();
+		if(!StringUtils.isEmpty(userName) && password != null ){
+			return new SimpleAuthenticationInfo(userName, password, getName());
 		}
 		return null;
 	}

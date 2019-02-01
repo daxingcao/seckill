@@ -9,13 +9,12 @@ public class StringUtil {
         if(StringUtil.isEmpty(str)){
             return false;
         }
-        final String patternStr = "^[-\\+]?[\\d]+|[-\\+]?[\\d]+.[\\d]+$";
-        Pattern pattern = Pattern.compile(patternStr);
-        return pattern.matcher(str).matches();
+        return RegexRoles.NUMBER_PATTERN.matcher(str).matches();
     }
 
     public static String humpToUnderline(String str){
-        String newStr = str.replaceAll("[^a-zA-Z0-9]+","");
+        Pattern pattern = RegexRoles.NOT_INCLUDE_LETTER_NUMBER_PATTERN;
+        String newStr = pattern.matcher(str).replaceAll("");
         StringBuilder builder = new StringBuilder();
         for(int i = 0;i < newStr.length();i++){
             char character = newStr.charAt(i);
@@ -31,7 +30,7 @@ public class StringUtil {
     }
 
     public static String replaceChinese(String str, String replace){
-        return Pattern.compile("[\\u4e00-\\u9fa5]+").matcher(str).replaceAll(replace);
+        return RegexRoles.INCLUDE_CHINESE_PATTERN.matcher(str).replaceAll(replace);
     }
 
     private static boolean isEmpty(String str){

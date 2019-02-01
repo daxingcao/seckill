@@ -1,18 +1,4 @@
 let oauth = {
-    URL: {
-        addClient: function () {
-            return '/admin/client/addClient.do';
-        },
-        delClient: function () {
-            return '/admin/client/batchDeleteClient.do';
-        },
-        clientList: function () {
-            return '/admin/client/clientList.do';
-        },
-        updateClient: function () {
-            return '/admin/client/updateClient.do';
-        }
-    },
     init: function () {
         //创建表格对象
         var table = new TableGenerate($("#table"), this.URL.clientList(), '#operate_button', 'server');
@@ -20,6 +6,8 @@ let oauth = {
         table.createTable(oauth.table.columns);
         //赋值给table字段,后续要用
         oauth.table.object = table;
+        //给元素添加点击事件
+        oauth.clickEvent();
     },
     selectSearch: function () {
         let parameter = {
@@ -95,6 +83,50 @@ let oauth = {
     },
     clearInputVal: function (formId) {
         $("#" + formId + " input").val('');
+    },
+    clickEvent: function () {
+        //根据条件查询数据
+        $("#condition_search").on('click',function () {
+            oauth.selectSearch();
+        });
+        //重置刷新
+        $("#condition_reset").on('click',function () {
+            oauth.resetRefresh();
+        });
+        //批量删除
+        $("#batch_delete").on('click',function () {
+            oauth.batchDelete();
+        });
+        //提交表单,添加应用
+        $("#submit_form").on('click',function () {
+            let id = $("input[name='id']").val();
+            if(common.is_empty(id)){
+                oauth.addOrUpdateClient(true);
+            }else{
+                oauth.addOrUpdateClient(false);
+            }
+        });
+        //显示添加应用模态框
+        $("#add_client").on('click',function () {
+            oauth.clearInputVal('client_form');
+            $("#client_modal_title").text("添加应用");
+            $("input[name='clientId']").attr('disabled',false);
+            $("#client_model").modal('show');
+        });
+    },
+    URL: {
+        addClient: function () {
+            return '/admin/client/addClient.do';
+        },
+        delClient: function () {
+            return '/admin/client/batchDeleteClient.do';
+        },
+        clientList: function () {
+            return '/admin/client/clientList.do';
+        },
+        updateClient: function () {
+            return '/admin/client/updateClient.do';
+        }
     },
     commonMethod: {
         //提取数组中的单个字段组成新的数组

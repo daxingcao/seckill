@@ -30,6 +30,10 @@ import com.caodaxing.shopseckill.utils.MessageUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @author daxing.cao
+ * @description 验证登录控制类
+ */
 @Slf4j
 @Controller
 @RequestMapping("/system")
@@ -66,7 +70,7 @@ public class LoginController {
 			String prevRequest = null;
 			if(savedRequest != null && savedRequest.getMethod().equalsIgnoreCase(AccessControlFilter.GET_METHOD)) {
 				prevRequest = savedRequest.getRequestUrl();
-				if(prevRequest.endsWith(shiroFilter.getLoginUrl())||prevRequest.equals("/")|| prevRequest.endsWith("/favicon.ico")) {
+				if(prevRequest.endsWith(shiroFilter.getLoginUrl())|| this.checkSaveUrl(prevRequest)) {
 					prevRequest = null;
 				}
 			}
@@ -76,6 +80,10 @@ public class LoginController {
 			return MessageUtil.successMessage((Object)prevRequest);
 		}
 		return MessageUtil.errorMessage("该用户名不存在!");
+	}
+
+	private boolean checkSaveUrl(String url){
+		return StringUtils.equals("/",url) || StringUtils.equals("/favicon.ico", url);
 	}
 
 }

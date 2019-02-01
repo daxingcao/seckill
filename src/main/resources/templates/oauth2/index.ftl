@@ -62,33 +62,5 @@
 <script type="text/javascript">
     //初始化表格
     oauth.init();
-    //根据条件查询数据
-    $("#condition_search").on('click',function () {
-        oauth.selectSearch();
-    });
-    //重置刷新
-    $("#condition_reset").on('click',function () {
-        oauth.resetRefresh();
-    });
-    //批量删除
-    $("#batch_delete").on('click',function () {
-        oauth.batchDelete();
-    });
-    //提交表单,添加应用
-    $("#submit_form").on('click',function () {
-        let id = $("input[name='id']").val();
-        if(common.is_empty(id)){
-            oauth.addOrUpdateClient(true);
-        }else{
-            oauth.addOrUpdateClient(false);
-        }
-    })
-    //显示添加应用模态框
-    $("#add_client").on('click',function () {
-        oauth.clearInputVal('client_form');
-        $("#client_modal_title").text("添加应用");
-        $("input[name='clientId']").attr('disabled',false);
-        $("#client_model").modal('show');
-    })
 </script>
 </@cdx.html5>

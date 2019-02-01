@@ -1,31 +1,34 @@
 package com.caodaxing.shopseckill.security;
 
+import com.caodaxing.shopseckill.autoconfigure.SystemProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.Assert;
 
 import javax.servlet.MultipartConfigElement;
 import java.io.File;
 
+/**
+ * @author daxing.cao
+ */
 @Slf4j
 @Configuration
 public class MultipartConfig {
 
-    @Value("${spring.location.path}")
-    private String location_path;
-
     @Bean
-    public MultipartConfigElement multipartConfigElement(){
+    public MultipartConfigElement multipartConfigElement(SystemProperties systemProperties){
+        Assert.notNull(systemProperties,"SystemProperties is must not null!");
+        String locationPath = systemProperties.getMultipartPath();
         MultipartConfigFactory factory = new MultipartConfigFactory();
-//        String location = System.getProperty("user.dir") + "/data/tmp";
-        log.info(location_path);
-        File file = new File(location_path);
+        log.info(locationPath);
+        File file = new File(locationPath);
         if(!file.exists()){
             file.mkdirs();
         }
-        factory.setLocation(location_path);
+        factory.setLocation(locationPath);
         return factory.createMultipartConfig();
     }
 

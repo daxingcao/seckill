@@ -23,12 +23,10 @@ public class FreeMarkerConfig {
 
 	@Autowired
 	private FreeMarkerProperties properties;
-	@Autowired
-	private SystemProperties systemProperties;
 
 	@Bean
-	public FreeMarkerConfigurer setConfig(SystemProperties systemProperties1) {
-		System.out.println(systemProperties.equals(systemProperties1));
+	public FreeMarkerConfigurer setConfig(SystemProperties systemProperties) {
+		Assert.notNull(systemProperties,"SystemProperties is must not null!");
 		FreeMarkerConfigurer config = new FreeMarkerConfigurer();
 		writeProperties(config);
 		Configuration configuration = null;
