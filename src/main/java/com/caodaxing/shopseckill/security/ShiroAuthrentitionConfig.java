@@ -34,6 +34,10 @@ public class ShiroAuthrentitionConfig {
 		return new ShiroRolesFilter();
 	}
 
+	public AccessControlFilter userFilter(){
+		return new CustomUserFilter();
+	}
+
 	@Bean
 	public AccessControlFilter oauth2Filter(){
 		return new OAuth2Filter();
@@ -89,14 +93,16 @@ public class ShiroAuthrentitionConfig {
 		urlAuth.put("/open/**","oauth2");
 		urlAuth.put("/logout", "logout");
 		urlAuth.put("/proviter/**", "authc,anyRole[admin,user]");
-		urlAuth.put("/**", "authc");
+		urlAuth.put("/**", "user");
 		shiroFilter.setFilterChainDefinitionMap(urlAuth);
 		//加载自定义过滤器
 		Map<String, Filter> filterMap = Maps.newHashMap();
 		filterMap.put("logout", logoutFilter(shiro.getLoginUrl()));
 		filterMap.put("anyRole", roleAuthorizationFilter());
 		filterMap.put("oauth2",  oauth2Filter());
+		filterMap.put("user", userFilter());
 		shiroFilter.setFilters(filterMap);
+
 		shiroFilter.setSecurityManager(defaultWebSecurityManager());
 		return shiroFilter;
 	}

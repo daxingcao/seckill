@@ -9,6 +9,7 @@ import com.caodaxing.shopseckill.autoconfigure.SystemProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
@@ -88,9 +89,7 @@ public class SeckillServiceImpl implements SeckillService {
 					return new SeckillResult(shopCode, SeckillStatus.SUCCESS, queryShopOrder);
 				}
 			}
-		} catch (CloseSeckillException e) {
-			throw e;
-		} catch (RepeatSeckillException e) {
+		} catch (CloseSeckillException | RepeatSeckillException e) {
 			throw e;
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

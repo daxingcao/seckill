@@ -60,6 +60,6 @@ public interface SeckillService {
 	 *             SeckillException},{@link RepeatSeckillException},{@link CloseSeckillException}
 	 */
 	SeckillResult executeSecKill(String shopCode, Long userId, String token)
-			throws SeckillException, RepeatSeckillException, CloseSeckillException;
+			throws SeckillException;
 
 }

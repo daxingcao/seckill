@@ -75,7 +75,7 @@ public class SeckillController {
 		}
 		
 		try {
-			Long userId = SessionUtil.getLoginUserId(request);
+			Long userId = SessionUtil.getLoginUserId();
 			if (userId == null) {
 				return new Returns<>(false, "未登录!");
 			}
