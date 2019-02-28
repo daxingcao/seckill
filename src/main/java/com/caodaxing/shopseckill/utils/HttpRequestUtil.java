@@ -24,15 +24,18 @@ import org.apache.http.util.EntityUtils;
  */
 public class HttpRequestUtil {
 
-    private volatile static Builder builder;
+    private static ThreadLocal<Builder> threadLocalBuilder = new ThreadLocal<>();
     private static CloseableHttpClient httpClient;
     private static CloseableHttpResponse response;
 
     private static void initialize(HttpRequestBase request) throws UnsupportedEncodingException {
         request.setConfig(getConfig());
+        Builder builder = builder();
         if (builder == null) {
             return;
         }
+        System.out.println(Thread.currentThread().getName() + ":" + builder.toString());
+        System.out.println(Thread.currentThread().getName() + ":" + builder.getParameters());
         if (builder.headers != null) {
             request.setHeaders(builder.getHeaders());
         }
@@ -45,6 +48,7 @@ public class HttpRequestUtil {
     }
 
     private static String jointUrl(String originalUrl){
+        Builder builder = builder();
         if(builder == null || builder.getParameters() == null){
             return originalUrl;
         }
@@ -77,9 +81,6 @@ public class HttpRequestUtil {
     }
 
     private static void clear() {
-        if(builder != null){
-            builder.clear();
-        }
         try {
             if (httpClient != null) {
                 httpClient.close();
@@ -127,8 +128,12 @@ public class HttpRequestUtil {
         return result;
     }
 
-    static Builder createBuilder() {
-        builder = new Builder();
+    public static Builder builder() {
+        Builder builder = threadLocalBuilder.get();
+        if(builder == null){
+            builder = new Builder();
+            threadLocalBuilder.set(builder);
+        }
         return builder;
     }
 
@@ -137,12 +142,6 @@ public class HttpRequestUtil {
         private List<BasicHeader> headers;
         private List<Parameter> parameters;
         private List<BasicNameValuePair> entities;
-
-        private void clear() {
-            this.headers = null;
-            this.parameters = null;
-            this.entities = null;
-        }
 
         Builder setHeader(String key, String value) {
             if (StringUtils.isEmpty(key) || StringUtils.isEmpty(value)) {
