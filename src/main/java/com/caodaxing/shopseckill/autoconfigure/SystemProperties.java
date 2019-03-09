@@ -2,6 +2,7 @@ package com.caodaxing.shopseckill.autoconfigure;
 
 import com.caodaxing.shopseckill.autoconfigure.include.LanguageInclude;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,14 +18,14 @@ public class SystemProperties {
     private String salt;
     private String multipartPath;
     private String freemarkerImport;
-    private final SystemProperties.MyAuth auth;
-    private final SystemProperties.MyShiro shiro;
+    private Auth auth;
+    private Shiro shiro;
 
     public SystemProperties(){
         this.salt = "";
         this.multipartPath = System.getProperty("user.dir")+"/data/tmp";
-        this.auth = new SystemProperties.MyAuth();
-        this.shiro = new SystemProperties.MyShiro();
+        this.auth = new SystemProperties.Auth();
+        this.shiro = new SystemProperties.Shiro();
     }
 
     public String getSalt() {
@@ -51,15 +52,15 @@ public class SystemProperties {
         this.freemarkerImport = freemarkerImport;
     }
 
-    public SystemProperties.MyAuth getAuth() {
+    public SystemProperties.Auth getAuth() {
         return this.auth;
     }
 
-    public SystemProperties.MyShiro getShiro() {
+    public SystemProperties.Shiro getShiro() {
         return this.shiro;
     }
 
-    public static class MyAuth{
+    public static class Auth{
 
         private LanguageInclude messageLanguage;
         /**
@@ -96,7 +97,7 @@ public class SystemProperties {
         }
     }
 
-    public static class MyShiro{
+    public static class Shiro{
 
         private String loginUrl;
         private String successUrl;

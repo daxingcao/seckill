@@ -1,5 +1,9 @@
 package com.caodaxing.shopseckill.entity;
 
+import lombok.Builder;
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -7,6 +11,9 @@ import java.util.Date;
  * 商品实体对象信息
  * @version 1.0.0
  */
+@Data
+@Builder
+@Accessors
 public class Shop {
     /**
      * 商品主键id
@@ -68,99 +75,4 @@ public class Shop {
      */
     private String remark;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getShopCode() {
-        return shopCode;
-    }
-
-    public void setShopCode(String shopCode) {
-        this.shopCode = shopCode;
-    }
-
-    public String getShopName() {
-        return shopName;
-    }
-
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
-    }
-
-    public BigDecimal getShopPrice() {
-        return shopPrice;
-    }
-
-    public void setShopPrice(BigDecimal shopPrice) {
-        this.shopPrice = shopPrice;
-    }
-
-    public String getShopIntroduce() {
-        return shopIntroduce;
-    }
-
-    public void setShopIntroduce(String shopIntroduce) {
-        this.shopIntroduce = shopIntroduce;
-    }
-
-    public Byte getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(Byte isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public Byte getIsSeckill() {
-        return isSeckill;
-    }
-
-    public void setIsSeckill(Byte isSeckill) {
-        this.isSeckill = isSeckill;
-    }
-
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Long getShopNumber() {
-        return shopNumber;
-    }
-
-    public void setShopNumber(Long shopNumber) {
-        this.shopNumber = shopNumber;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
 }

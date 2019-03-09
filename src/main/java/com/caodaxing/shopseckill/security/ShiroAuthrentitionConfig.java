@@ -75,7 +75,7 @@ public class ShiroAuthrentitionConfig {
 	@Bean(name="shiroFilter")
 	public ShiroFilterFactoryBean shiroFilter(SystemProperties properties) {
 		Assert.notNull(properties.getShiro(),"Shiro class must not null!");
-		SystemProperties.MyShiro shiro = properties.getShiro();
+		SystemProperties.Shiro shiro = properties.getShiro();
 		ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
 		shiroFilter.setLoginUrl(shiro.getLoginUrl());
 		//登录成功后跳转的地址
@@ -84,6 +84,7 @@ public class ShiroAuthrentitionConfig {
 		Map<String, String> urlAuth = Maps.newHashMap();
 		urlAuth.put("/static/**", "anon");
 		urlAuth.put("/html/**", "anon");
+		urlAuth.put("/mongo/**", "anon");
 		urlAuth.put("/system/checkLogin.do", "anon");
 		urlAuth.put("/oauth/**", "anon");
 		urlAuth.put("/open/**","oauth2");
