@@ -10,8 +10,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @author daxing.cao
  */
 @SpringBootApplication
-@ComponentScan
 @EnableScheduling
+@ComponentScan
 @MapperScan("com.caodaxing.shopseckill.dao")
 public class ShopSeckillApplication {
 
