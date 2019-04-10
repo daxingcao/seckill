@@ -1,5 +1,6 @@
 package com.caodaxing.shopseckill.service.impl;
 
+import com.caodaxing.dubbo.annotation.Producer;
 import com.caodaxing.shopseckill.entity.Shop;
 import com.caodaxing.shopseckill.service.MongoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.util.List;
  * @description mongodb业务逻辑实现类
  */
 @Service
+@Producer
 public class MongoServiceImpl implements MongoService {
 
     @Autowired
